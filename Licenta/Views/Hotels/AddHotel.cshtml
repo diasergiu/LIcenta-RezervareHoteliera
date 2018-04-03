@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "AddHotel";
+}
+
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h2>Add Hotel</h2>
+    <form method="post">
+        <fieldset>
+            <legend>hotel data</legend>
+            <p>
+                <label for="stars">Hotel stars</label>
+                <input type="number" name="stars" value="@Request.form["stars"]" />
+            </p>
+            <p>
+                <label for="stars">Hotel stars</label>
+                <input type="number" name="stars" value="@Request.form["HotelName"]" />
+            </p>
+            <p>
+                <label for="stars">Hotel stars</label>
+                <input type="number" name="stars" value="@Request.form["DescriptionTable"]" />
+            </p>
+            <p><input type="submit" name="buttonSubmit" value="Add Hotel" /></p>
+        </fieldset>
+    </form>
+</body>
+
+
