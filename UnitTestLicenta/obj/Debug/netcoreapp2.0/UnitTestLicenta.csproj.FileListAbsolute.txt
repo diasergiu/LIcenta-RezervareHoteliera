@@ -1,0 +1,14 @@
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\bin\Debug\netcoreapp2.0\UnitTestLicenta.deps.json
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\bin\Debug\netcoreapp2.0\UnitTestLicenta.runtimeconfig.json
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\bin\Debug\netcoreapp2.0\UnitTestLicenta.runtimeconfig.dev.json
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\bin\Debug\netcoreapp2.0\UnitTestLicenta.dll
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\bin\Debug\netcoreapp2.0\UnitTestLicenta.pdb
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.csprojResolveAssemblyReference.cache
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.csproj.CoreCompileInputs.cache
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.AssemblyInfoInputs.cache
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.AssemblyInfo.cs
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.dll
+C:\Users\Sergiu\Source\Repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.pdb
