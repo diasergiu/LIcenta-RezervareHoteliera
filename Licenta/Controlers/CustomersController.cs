@@ -9,22 +9,22 @@ using Licenta.Entityes;
 
 namespace Licenta.Controlers
 {
-    public class HotelsController : Controller
+    public class CustomersController : Controller
     {
         private readonly DBRezervareHotelieraContext _context;
 
-        public HotelsController(DBRezervareHotelieraContext context)
+        public CustomersController(DBRezervareHotelieraContext context)
         {
             _context = context;
         }
 
-        // GET: Hotels
+        // GET: Customers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Hotels.ToListAsync());
+            return View(await _context.Customers.ToListAsync());
         }
 
-        // GET: Hotels/Details/5
+        // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,40 +32,39 @@ namespace Licenta.Controlers
                 return NotFound();
             }
 
-            var hotels = await _context.Hotels
-                .SingleOrDefaultAsync(m => m.IdHotel == id);
-            if (hotels == null)
+            var customers = await _context.Customers
+                .SingleOrDefaultAsync(m => m.IdCustomer == id);
+            if (customers == null)
             {
                 return NotFound();
             }
 
-            return View(hotels);
+            return View(customers);
         }
 
-        // GET: Hotels/Create
+        // GET: Customers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Hotels/Create
+        // POST: Customers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //ActionResult Create nu merge
-        public async Task<IActionResult> AddHotel ([Bind("IdHotel,Stars,HotelName,DescriptionTable")] Hotels hotels)
+        public async Task<IActionResult> Create([Bind("IdCustomer,FirstName,LastName,Username,Password,Email,Phone")] Customers customers)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(hotels);
+                _context.Add(customers);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(hotels);
+            return View(customers);
         }
 
-        // GET: Hotels/Edit/5
+        // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +72,22 @@ namespace Licenta.Controlers
                 return NotFound();
             }
 
-            var hotels = await _context.Hotels.SingleOrDefaultAsync(m => m.IdHotel == id);
-            if (hotels == null)
+            var customers = await _context.Customers.SingleOrDefaultAsync(m => m.IdCustomer == id);
+            if (customers == null)
             {
                 return NotFound();
             }
-            return View(hotels);
+            return View(customers);
         }
 
-        // POST: Hotels/Edit/5
+        // POST: Customers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdHotel,Stars,HotelName,DescriptionTable")] Hotels hotels)
+        public async Task<IActionResult> Edit(int id, [Bind("IdCustomer,FirstName,LastName,Username,Password,Email,Phone")] Customers customers)
         {
-            if (id != hotels.IdHotel)
+            if (id != customers.IdCustomer)
             {
                 return NotFound();
             }
@@ -97,12 +96,12 @@ namespace Licenta.Controlers
             {
                 try
                 {
-                    _context.Update(hotels);
+                    _context.Update(customers);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!HotelsExists(hotels.IdHotel))
+                    if (!CustomersExists(customers.IdCustomer))
                     {
                         return NotFound();
                     }
@@ -113,10 +112,10 @@ namespace Licenta.Controlers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(hotels);
+            return View(customers);
         }
 
-        // GET: Hotels/Delete/5
+        // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,44 +123,30 @@ namespace Licenta.Controlers
                 return NotFound();
             }
 
-            var hotels = await _context.Hotels
-                .SingleOrDefaultAsync(m => m.IdHotel == id);
-            if (hotels == null)
+            var customers = await _context.Customers
+                .SingleOrDefaultAsync(m => m.IdCustomer == id);
+            if (customers == null)
             {
                 return NotFound();
             }
 
-            return View(hotels);
+            return View(customers);
         }
 
-        // POST: Hotels/Delete/5
+        // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var hotels = await _context.Hotels.SingleOrDefaultAsync(m => m.IdHotel == id);
-            _context.Hotels.Remove(hotels);
+            var customers = await _context.Customers.SingleOrDefaultAsync(m => m.IdCustomer == id);
+            _context.Customers.Remove(customers);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool HotelsExists(int id)
+        private bool CustomersExists(int id)
         {
-            return _context.Hotels.Any(e => e.IdHotel == id);
-        }
-
-
-
-        // create my http metods
-
-
-        [HttpPost]
-        public ActionResult SaveHotel(Hotels newHotel)
-        {
-            _context.Add(newHotel);
-            _context.SaveChangesAsync();
-
-            return View("Hotels/Create");
+            return _context.Customers.Any(e => e.IdCustomer == id);
         }
     }
 }

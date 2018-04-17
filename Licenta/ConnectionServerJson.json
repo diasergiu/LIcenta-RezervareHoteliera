@@ -1,0 +1,5 @@
+﻿{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=DESKTOP-TPPITPA\\SQLEXPRESS;Database=DBRezervareHoteliera;Trusted_Connection=True;"
+  }
+}

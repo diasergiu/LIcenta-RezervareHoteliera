@@ -14,16 +14,25 @@ namespace Licenta.Entityes
         public virtual DbSet<Reservations> Reservations { get; set; }
         public virtual DbSet<Rooms> Rooms { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public DBRezervareHotelieraContext(DbContextOptions<DBRezervareHotelieraContext> options) : base(options)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-#pragma warning disable CS1030 // #warning directive
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"Server=DESKTOP-TPPITPA\SQLEXPRESS;Database=DBRezervareHoteliera;Trusted_Connection=True;");
-#pragma warning restore CS1030 // #warning directive
-            }
+
         }
+
+        //public DBRezervareHotelieraContext()
+        //{
+        //} 
+
+//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//        {
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#pragma warning disable CS1030 // #warning directive
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//                optionsBuilder.UseSqlServer(@"Server=DESKTOP-TPPITPA\SQLEXPRESS;Database=DBRezervareHoteliera;Trusted_Connection=True;");
+//#pragma warning restore CS1030 // #warning directive
+//            }
+//        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
