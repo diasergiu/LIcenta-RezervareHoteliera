@@ -1,4 +1,5 @@
 ﻿@model Licenta.Entityes.Rooms
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Delete";
@@ -42,7 +43,7 @@
             @Html.DisplayFor(model => model.IdHotelNavigation.IdHotel)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdRoom" />
         <input type="submit" value="Delete" class="btn btn-default" /> |

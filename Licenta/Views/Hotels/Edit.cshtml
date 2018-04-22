@@ -1,4 +1,5 @@
 ﻿@model Licenta.Entityes.Hotels
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Edit";
@@ -10,26 +11,31 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="_Edit" asp-controller="Hotels" method="post">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdHotel" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Stars" class="control-label"></label>
+                <label asp-for="Stars" class="control-label">Stars</label><br />
                 <input asp-for="Stars" class="form-control" />
                 <span asp-validation-for="Stars" class="text-danger"></span>
+                @Html.ValidationMessage("Stars")
             </div>
             <div class="form-group">
-                <label asp-for="HotelName" class="control-label"></label>
+                <label asp-for="HotelName" class="control-label">Hotel name</label><br />
                 <input asp-for="HotelName" class="form-control" />
                 <span asp-validation-for="HotelName" class="text-danger"></span>
+                @Html.ValidationMessage("HotelName")
             </div>
             <div class="form-group">
-                <label asp-for="DescriptionTable" class="control-label"></label>
+                <label asp-for="DescriptionTable" class="control-label">Description hotel</label><br />
                 <input asp-for="DescriptionTable" class="form-control" />
                 <span asp-validation-for="DescriptionTable" class="text-danger"></span>
+                @Html.ValidationMessage("DescriptionTable")
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Update Hotel" class="btn btn-default" />
             </div>
         </form>
     </div>

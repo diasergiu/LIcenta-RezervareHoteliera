@@ -1,4 +1,5 @@
 ﻿@model Licenta.Entityes.Hotels
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Delete";
@@ -30,8 +31,8 @@
             @Html.DisplayFor(model => model.DescriptionTable)
         </dd>
     </dl>
-    
-    <form asp-action="Delete">
+
+    <form asp-action="Delete" methid="post">
         <input type="hidden" asp-for="IdHotel" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>

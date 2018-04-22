@@ -1,4 +1,5 @@
 ﻿@model Licenta.Entityes.Hotels
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Create";
@@ -8,19 +9,19 @@
 
 <h4>Hotels</h4>
 <hr />
-@using (Html.BeginForm("SaveHotel", "Hotels", FormMethod.Post))
-{
+
+   
     <div class="row">
 
 
         <div class="col-md-4">
-            <form asp-action="AddHotel" method="post">
+            <form asp-action="Create" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Stars" class="control-label">Stars</label><br />
                     <input asp-for="Stars" class="form-control" />
                     <span asp-validation-for="Stars" class="text-danger"></span>
-                    @Html.ValidationMessage("Stars")
+                   
                 </div>
                 <div class="form-group">
                     <label asp-for="HotelName" class="control-label">Hotel name</label><br />
@@ -35,14 +36,13 @@
                     @Html.ValidationMessage("DescriptionTable")
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Addhotel" class="btn btn-default" />
+                    <input type="submit" value="Save Hotel" class="btn btn-default" />
                 </div>
-
 
             </form>
         </div>
     </div>
-}
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

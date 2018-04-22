@@ -7,6 +7,7 @@ namespace Licenta.Entityes
     public partial class DBRezervareHotelieraContext : DbContext
     {
         public virtual DbSet<Customers> Customers { get; set; }
+        public virtual DbSet<Employes> Employes { get; set; }
         public virtual DbSet<Facilities> Facilities { get; set; }
         public virtual DbSet<FacilitiesHotel> FacilitiesHotel { get; set; }
         public virtual DbSet<Hotels> Hotels { get; set; }
@@ -18,19 +19,12 @@ namespace Licenta.Entityes
         {
 
         }
-
-        //public DBRezervareHotelieraContext()
-        //{
-        //} 
-
 //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //        {
 //            if (!optionsBuilder.IsConfigured)
 //            {
-//#pragma warning disable CS1030 // #warning directive
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
 //                optionsBuilder.UseSqlServer(@"Server=DESKTOP-TPPITPA\SQLEXPRESS;Database=DBRezervareHoteliera;Trusted_Connection=True;");
-//#pragma warning restore CS1030 // #warning directive
 //            }
 //        }
 
@@ -71,6 +65,38 @@ namespace Licenta.Entityes
                     .HasColumnName("username")
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Employes>(entity =>
+            {
+                entity.HasKey(e => e.Idemploye);
+
+                entity.Property(e => e.Idemploye).HasColumnName("IDEmploye");
+
+                entity.Property(e => e.EmployType)
+                    .HasMaxLength(25)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FirstName)
+                    .HasMaxLength(25)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LastName)
+                    .HasMaxLength(25)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(55)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(55)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdHotelNavigation)
+                    .WithMany(p => p.Employes)
+                    .HasForeignKey(d => d.IdHotel)
+                    .HasConstraintName("FK__Employes__IdHote__160F4887");
             });
 
             modelBuilder.Entity<Facilities>(entity =>

@@ -7,6 +7,7 @@ namespace Licenta.Entityes
     {
         public Hotels()
         {
+            Employes = new HashSet<Employes>();
             FacilitiesHotel = new HashSet<FacilitiesHotel>();
             Location = new HashSet<Location>();
             Rooms = new HashSet<Rooms>();
@@ -17,6 +18,7 @@ namespace Licenta.Entityes
         public string HotelName { get; set; }
         public string DescriptionTable { get; set; }
 
+        public ICollection<Employes> Employes { get; set; }
         public ICollection<FacilitiesHotel> FacilitiesHotel { get; set; }
         public ICollection<Location> Location { get; set; }
         public ICollection<Rooms> Rooms { get; set; }

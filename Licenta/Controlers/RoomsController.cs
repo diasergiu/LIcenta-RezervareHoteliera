@@ -75,7 +75,7 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
-
+            
             var rooms = await _context.Rooms.SingleOrDefaultAsync(m => m.IdRoom == id);
             if (rooms == null)
             {

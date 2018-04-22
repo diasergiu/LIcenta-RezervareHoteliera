@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Licenta.Entityes;
+using Licenta.Repositories;
 
 namespace Licenta.Controlers
 {
     public class HotelsController : Controller
     {
         private readonly DBRezervareHotelieraContext _context;
+        private HotelsRepositories repository;
 
         public HotelsController(DBRezervareHotelieraContext context)
         {
-            _context = context;
+            repository = new HotelsRepositories(context);
+            _context = context;// this is to be removed
         }
 
         // GET: Hotels
@@ -32,8 +35,7 @@ namespace Licenta.Controlers
                 return NotFound();
             }
 
-            var hotels = await _context.Hotels
-                .SingleOrDefaultAsync(m => m.IdHotel == id);
+            var hotels = repository.Details(id);               
             if (hotels == null)
             {
                 return NotFound();
@@ -45,7 +47,8 @@ namespace Licenta.Controlers
         // GET: Hotels/Create
         public IActionResult Create()
         {
-            return View();
+            Hotels hotel = new Hotels();
+            return View(hotel);
         }
 
         // POST: Hotels/Create
@@ -54,12 +57,12 @@ namespace Licenta.Controlers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //ActionResult Create nu merge
-        public async Task<IActionResult> AddHotel ([Bind("IdHotel,Stars,HotelName,DescriptionTable")] Hotels hotels)
+        public async Task<IActionResult> Create ([Bind("IdHotel,Stars,HotelName,DescriptionTable")] Hotels hotels)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(hotels);
-                await _context.SaveChangesAsync();
+
+                repository.CreateHotel(hotels);
                 return RedirectToAction(nameof(Index));
             }
             return View(hotels);
@@ -86,12 +89,12 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdHotel,Stars,HotelName,DescriptionTable")] Hotels hotels)
+        public async Task<IActionResult> _Edit(/*int id,*/ [Bind("IdHotel,Stars,HotelName,DescriptionTable")] Hotels hotels)
         {
-            if (id != hotels.IdHotel)
-            {
-                return NotFound();
-            }
+            //if (id != hotels.IdHotel)
+            //{
+            //    return NotFound();
+            //}
 
             if (ModelState.IsValid)
             {
@@ -155,13 +158,16 @@ namespace Licenta.Controlers
         // create my http metods
 
 
-        [HttpPost]
-        public ActionResult SaveHotel(Hotels newHotel)
-        {
-            _context.Add(newHotel);
-            _context.SaveChangesAsync();
-
-            return View("Hotels/Create");
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> SaveHotel ([Bind("Stars,HotelName,DescriptionTable")]Hotels newHotel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(newHotel);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(newHotel);
+        //}
     }
 }
