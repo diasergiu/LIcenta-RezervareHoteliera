@@ -10,12 +10,12 @@ namespace UnitTestLicenta
     [TestClass]
     class HotelControlTest
     {
-        DBRezervareHotelieraContext context = new DBRezervareHotelieraContext();
+        //DBRezervareHotelieraContext context = new DBRezervareHotelieraContext();
 
         [TestMethod]
         public void AddToTheDataBase()
         {
-            HotelsController hotel = new HotelsController(context);
+            //HotelsController hotel = new HotelsController(context);
             //await hotel.AddHotel();
 
 

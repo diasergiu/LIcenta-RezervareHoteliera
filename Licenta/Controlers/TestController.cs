@@ -15,6 +15,7 @@ namespace Licenta.Controlers
         //{
         //    context = new DBRezervareHotelieraContext();
         //}
+
         public IActionResult Index()
         {
             return View();

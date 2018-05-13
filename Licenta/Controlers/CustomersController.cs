@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Licenta.Entityes;
+using Microsoft.AspNetCore.Http;
 
 namespace Licenta.Controlers
 {
@@ -148,5 +149,53 @@ namespace Licenta.Controlers
         {
             return _context.Customers.Any(e => e.IdCustomer == id);
         }
+
+        #region login logout
+
+        public ActionResult LogIn()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult LogIn([Bind("Username,Password")]Customers customerLogin)
+        {
+            var LoginCustomer = _context.Customers
+                .Where(x => x.Username == customerLogin.Username && x.Password == customerLogin.Password)
+                .FirstOrDefault();
+            if(LoginCustomer != null)
+            {
+                HttpContext.Session.SetString("IdCustomer", LoginCustomer.IdCustomer.ToString());
+                HttpContext.Session.SetString("Username", LoginCustomer.Username);
+                return RedirectToAction("Welcome");
+            }
+            else
+            {
+                ModelState.AddModelError("","username or password is wrong");
+            }
+            return View();
+        }
+
+        public ActionResult Welcome()
+        {
+            if(HttpContext.Session.GetString("Username") != null)
+            {
+                ViewBag.Username = HttpContext.Session.GetString("Username");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogIn");
+            }
+        }
+
+
+        public ActionResult LogOut()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToPage("index");
+        }
+
+        #endregion
     }
 }

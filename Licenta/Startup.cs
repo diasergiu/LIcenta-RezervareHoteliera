@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Licenta.Entityes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 
@@ -35,9 +30,9 @@ namespace Licenta
             services.AddDbContext<DBRezervareHotelieraContext>(options =>
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<DbContext>(sp => sp.GetService<DBRezervareHotelieraContext>());
-            var container = services.BuildServiceProvider();
-
+            var container = services.BuildServiceProvider();           
             services.AddMvc();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,11 +42,13 @@ namespace Licenta
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
+            //app.RunIISPipeline();
+
 
             //app.Run(async (context) =>
             //{

@@ -1,0 +1,63 @@
+﻿@using Microsoft.AspNetCore.Http
+@model Licenta.Entityes.DBRezervareHotelieraContext
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section Style{
+    <link href="@Url.Content("~/bootstrap-4.1.1-dist/css/bootstrap-grid.css")" rel="stylesheet" type="text/css" ) />
+    <link href="@Url.Content("~/bootstrap-4.1.1-dist/css/bootstrap-reboot.css")" rel="stylesheet" type="text/css" ) />
+    <link href="@Url.Content("~/bootstrap-4.1.1-dist/css/bootstrap.css")" rel="stylesheet)" type="text/css" />
+    <link href="@Url.Content("~/CSS/MainCss.css")" rel="stylesheet" type="text/css" />
+}
+@section Scripe{
+    <script src="@Url.Content("~/bootstrap-4.1.1-dist/js/bootstrap.js")"></script>
+}
+
+<h2>Chose a Hotel </h2>
+
+<!-- uninpelmented-->
+<form asp-controller="Home" asp-action="Index" method="post">
+    <input type="text" asp-for="Facilities" />
+    <br />
+    @foreach (var facilities in Model.Facilities)
+    {
+        <input type="checkbox" />
+        @facilities.FacilitiesName
+    }
+    @*<div class="form-group">
+            <label asp-for="Location" class="control-label"></label>
+            <select asp-for="IdHotel" class="form-control" asp-items="Model.Location.ToList()"></select>
+        </div>*@
+    <input type="submit" value="Filter" />
+</form>
+@if (Context.Session.GetString("IdCustomer") != null)
+{
+    <li><a asp-area="" asp-controller="Customers" asp-action="LogOut">logOut</a></li>
+}
+else
+{
+    <li><a asp-area="" asp-controller="Customers" asp-action="LogIn">LogIn</a></li>
+    <li><a asp-area="" asp-controller="Customers" asp-action="Create">Sing In</a></li>
+}
+
+<div>
+    <h4>Hotels</h4>
+    <hr />
+    <table>
+        @foreach (var Hotel in Model.Hotels)
+        {
+            <tr>
+                <td> @Html.DisplayFor(modelIten => Hotel.DescriptionTable)</td>
+                <td> @Html.DisplayFor(modelIten => Hotel.HotelName)</td>
+                <td> @Html.DisplayFor(modelIten => Hotel.Stars)</td>
+                <td> @Html.DisplayFor(modelIten => Hotel.IdHotel)</td>
+                <td><a href="/hotels/Details/@Hotel.IdHotel">Visit hotel</a></td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+

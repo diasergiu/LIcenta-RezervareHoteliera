@@ -1,0 +1,42 @@
+﻿@model Licenta.Entityes.Location
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Location</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RegionName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegionName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StreatName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StreatName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NrStreat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NrStreat)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdHotelNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdHotelNavigation.IdHotel)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IdLocation">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
