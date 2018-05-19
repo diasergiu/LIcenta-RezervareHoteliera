@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
-@model Licenta.Entityes.DBRezervareHotelieraContext
+@model Licenta.ViewModel.HomePageViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -18,45 +19,70 @@
 <h2>Chose a Hotel </h2>
 
 <!-- uninpelmented-->
-<form asp-controller="Home" asp-action="Index" method="post">
-    <input type="text" asp-for="Facilities" />
-    <br />
-    @foreach (var facilities in Model.Facilities)
-    {
-        <input type="checkbox" />
-        @facilities.FacilitiesName
-    }
-    @*<div class="form-group">
-            <label asp-for="Location" class="control-label"></label>
-            <select asp-for="IdHotel" class="form-control" asp-items="Model.Location.ToList()"></select>
-        </div>*@
-    <input type="submit" value="Filter" />
-</form>
-@if (Context.Session.GetString("IdCustomer") != null)
-{
-    <li><a asp-area="" asp-controller="Customers" asp-action="LogOut">logOut</a></li>
-}
-else
-{
-    <li><a asp-area="" asp-controller="Customers" asp-action="LogIn">LogIn</a></li>
-    <li><a asp-area="" asp-controller="Customers" asp-action="Create">Sing In</a></li>
-}
 
-<div>
-    <h4>Hotels</h4>
-    <hr />
-    <table>
-        @foreach (var Hotel in Model.Hotels)
-        {
-            <tr>
-                <td> @Html.DisplayFor(modelIten => Hotel.DescriptionTable)</td>
-                <td> @Html.DisplayFor(modelIten => Hotel.HotelName)</td>
-                <td> @Html.DisplayFor(modelIten => Hotel.Stars)</td>
-                <td> @Html.DisplayFor(modelIten => Hotel.IdHotel)</td>
-                <td><a href="/hotels/Details/@Hotel.IdHotel">Visit hotel</a></td>
-            </tr>
-        }
-    </table>
+
+<div class="navbar navbar-nav">
+    @if (Context.Session.GetString("IdCustomer") != null)
+    {
+        <ul>
+            <li><a asp-area="" asp-controller="Customers" asp-action="LogOut">logOut</a></li>
+        </ul>
+    }
+    else
+    {
+        <ul>
+            <li><a asp-area="" asp-controller="Customers" asp-action="LogIn">LogIn</a></li>
+            <li><a asp-area="" asp-controller="Customers" asp-action="Create">Sing In</a></li>
+        </ul>
+    }
+</div>
+ 
+<div class="row">
+    <div class="col-sm-4">
+        <form asp-controller="Home" asp-action="Index" method="post">
+          
+            <br />
+            @for(int i = 0; i < Model.listFacilities.Length; i++)
+            {
+                @Html.TextBoxFor(m => m.listFacilities[i].IdFacilities)
+                @Model.listFacilities[i].FacilitiesName
+            }
+            <div class="form-group">                    
+					<select asp-for="@Model.IdLocation" class="form-control">
+						@foreach(var Location in Model.listLocations)
+						{
+							<option>@Location.RegionName</option>
+						}
+					</select>
+             </div>
+            <input type="submit" value="Filter" class="btn btn-default"/>
+        </form>
+    </div>
+	
+    <div class="col-sm-8">
+        <h4>Hotels</h4>
+        <hr />
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Hotel name</td>
+                    <td>Description table</td>
+                    <td>Stars</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Hotel in Model.listHotels)
+                {
+                    <tr>
+                        <td> @Html.DisplayFor(modelIten => Hotel.HotelName)</td>
+                        <td> @Html.DisplayFor(modelIten => Hotel.DescriptionTable)</td>
+                        <td> @Html.DisplayFor(modelIten => Hotel.Stars)</td>
+                        <td><a href="/hotels/Details/@Hotel.IdHotel">Visit hotel</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
 

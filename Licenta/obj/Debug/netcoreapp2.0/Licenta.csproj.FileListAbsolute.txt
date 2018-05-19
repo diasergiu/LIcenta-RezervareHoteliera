@@ -30,4 +30,5 @@ C:\Users\diase\source\repos\RezervareHoteliera\Licenta\obj\Debug\netcoreapp2.0\L
 C:\Users\diase\source\repos\RezervareHoteliera\Licenta\obj\Debug\netcoreapp2.0\Licenta.AssemblyInfo.cs
 C:\Users\diase\source\repos\RezervareHoteliera\Licenta\obj\Debug\netcoreapp2.0\Licenta.dll
 C:\Users\diase\source\repos\RezervareHoteliera\Licenta\obj\Debug\netcoreapp2.0\Licenta.pdb
-C:\Users\diase\source\repos\RezervareHoteliera\Licenta\obj\Debug\netcoreapp2.0\Licenta.csprojResolveAssemblyReference.cache
+C:\Users\diase\source\repos\RezervareHoteliera\Licenta\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\diase\source\repos\RezervareHoteliera\Licenta\obj\Debug\netcoreapp2.0\Licenta.csprojAssemblyReference.cache

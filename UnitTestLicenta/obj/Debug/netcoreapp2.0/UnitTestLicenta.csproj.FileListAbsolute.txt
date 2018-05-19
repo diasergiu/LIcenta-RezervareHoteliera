@@ -41,10 +41,10 @@ C:\Users\diase\source\repos\RezervareHoteliera\UnitTestLicenta\bin\Debug\netcore
 C:\Users\diase\source\repos\RezervareHoteliera\UnitTestLicenta\bin\Debug\netcoreapp2.0\UnitTestLicenta.pdb
 C:\Users\diase\source\repos\RezervareHoteliera\UnitTestLicenta\bin\Debug\netcoreapp2.0\Licenta.dll
 C:\Users\diase\source\repos\RezervareHoteliera\UnitTestLicenta\bin\Debug\netcoreapp2.0\Licenta.pdb
-C:\Users\diase\source\repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.csprojResolveAssemblyReference.cache
 C:\Users\diase\source\repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.csproj.CoreCompileInputs.cache
 C:\Users\diase\source\repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.AssemblyInfoInputs.cache
 C:\Users\diase\source\repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.AssemblyInfo.cs
 C:\Users\diase\source\repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.csproj.CopyComplete
 C:\Users\diase\source\repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.dll
 C:\Users\diase\source\repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.pdb
+C:\Users\diase\source\repos\RezervareHoteliera\UnitTestLicenta\obj\Debug\netcoreapp2.0\UnitTestLicenta.csprojAssemblyReference.cache
