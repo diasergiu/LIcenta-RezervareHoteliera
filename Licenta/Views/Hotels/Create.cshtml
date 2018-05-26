@@ -1,22 +1,15 @@
-﻿@model Licenta.Entityes.Hotels
+﻿@model Licenta.ViewModel.HotelViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Create";
+	Layout = "_Layout";
 }
 
-@section Style{
-    <link href="@Url.Content("~/bootstrap-4.1.1-dist/css/bootstrap-grid.css")" rel="stylesheet" type="text/css" ) />
-    <link href="@Url.Content("~/bootstrap-4.1.1-dist/css/bootstrap-reboot.css")" rel="stylesheet" type="text/css" ) />
-    <link href="@Url.Content("~/bootstrap-4.1.1-dist/css/bootstrap.css")" rel="stylesheet)" type="text/css" />
-    <link href="@Url.Content("~/CSS/MainCss.css")" rel="stylesheet" type="text/css" />
-}
 
-@section Scripe{
-    <script src="@Url.Content("~/bootstrap-4.1.1-dist/js/bootstrap.js")"></script>
-}
 
-<body>
+
+
     <h2>Create</h2>
 
     <h4>Hotels</h4>
@@ -49,6 +42,9 @@
                 <div class="form-group">
                     <input type="submit" value="Save Hotel" class="btn btn-default" />
                 </div>
+
+				<div class="form-group">
+					<input asp-for="HotelPicts" class="form-control" />
             </form>
         </div>
     </div>
@@ -56,7 +52,5 @@
     <div>
         <a asp-action="Index">Back to List</a>
     </div>
-</body>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+
+

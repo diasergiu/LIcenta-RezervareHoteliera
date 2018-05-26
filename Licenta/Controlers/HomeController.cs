@@ -11,28 +11,28 @@ namespace Licenta.Controlers
 {
     public class HomeController : Controller
     {
-        private DBRezervareHotelieraContext context;
-        [BindProperty]
-        public List<Facilities> Facilities { get; set; }
+        private DBRezervareHotelieraContext _context;
 
-        public HomeController(DBRezervareHotelieraContext _context)
+
+        public HomeController(DBRezervareHotelieraContext context)
         {
-            context = _context;
+            _context = context;
         }
 
         public IActionResult Index()
         {
 
             HomePageViewModel homePageViewModel = new HomePageViewModel();
-            homePageViewModel.listHotels = context.Hotels.ToList();
-            homePageViewModel.listFacilities = context.Facilities.ToArray();
-            homePageViewModel.listLocations = context.Location.ToList();
-            ViewData["IdLocation"] = new SelectList(homePageViewModel.listLocations, "IdLocation", "LocationName");
+            homePageViewModel.listHotels = _context.Hotels.ToList();
+            homePageViewModel.listFacilities = _context.Facilities.ToArray();
+            homePageViewModel.listLocations = _context.Location.ToList();          
             return View(homePageViewModel);
         }
 
+        //[HttpPost("[controller]")]
         [HttpPost]
-        public IActionResult Index([FromBody] HomePageViewModel HPVM)
+        [ActionName("filter")]
+        public IActionResult Index ([Bind("IdFacilities,IdLocation")] HomePageViewModel HPVM)
         {
             if (ModelState.IsValid)
             {
@@ -40,25 +40,25 @@ namespace Licenta.Controlers
 
                 HomePageViewModel _homePageviewmode = new HomePageViewModel();
 
-                var LocationHotelQuery = (from H in context.Hotels
-                                          join L in context.Location
+                var LocationHotelQuery = (from H in _context.Hotels
+                                          join L in _context.Location
                                           on H.IdHotel equals L.IdHotel
                                           where L.IdLocation == HPVM.IdLocation
                                           select H).ToList();
                 foreach (var facilities in HPVM.IdFacilities)
                 {
-                    LocationHotelQuery = (from H in context.Hotels
-                                          join FH in context.FacilitiesHotel
+                    LocationHotelQuery = (from H in _context.Hotels
+                                          join FH in _context.FacilitiesHotel
                                           on H.IdHotel equals FH.IdHotel
-                                          join F in context.Facilities
+                                          join F in _context.Facilities
                                           on FH.IdFacilities equals F.IdFacilities
                                           where F.IdFacilities == facilities
                                           select H).ToList();
                 }
 
                 _homePageviewmode.listHotels = LocationHotelQuery;
-                _homePageviewmode.listFacilities = context.Facilities.ToArray();
-                _homePageviewmode.listLocations = context.Location.ToList();
+                _homePageviewmode.listFacilities = _context.Facilities.ToArray();
+                _homePageviewmode.listLocations = _context.Location.ToList();
                 return View(_homePageviewmode);
             }
             return Redirect("index");

@@ -47,7 +47,7 @@ namespace Licenta.Controlers
         // GET: Locations/Create
         public IActionResult Create()
         {
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel");
+            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "HotelName");
             return View();
         }
 

@@ -29,10 +29,11 @@ namespace Licenta
           
             services.AddDbContext<DBRezervareHotelieraContext>(options =>
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<DbContext>(sp => sp.GetService<DBRezervareHotelieraContext>());
+            services.AddTransient<DbContext>(sp => sp.GetService<DBRezervareHotelieraContext>());
             var container = services.BuildServiceProvider();           
             services.AddMvc();
             services.AddSession();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,9 +49,12 @@ namespace Licenta
                 context.Database.Migrate();
             }
             app.UseSession();
+            app.UseStaticFiles();
             app.UseMvc(routes =>
             {
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
             //app.RunIISPipeline();
 

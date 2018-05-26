@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Licenta.Entityes;
 using Licenta.Repositories;
+using Licenta.ViewModel;
+using Microsoft.AspNetCore.Http;
 
 namespace Licenta.Controlers
 {
@@ -19,6 +21,7 @@ namespace Licenta.Controlers
         {
             repository = new HotelsRepositories(context);
             _context = context;// this is to be removed
+
         }
 
         // GET: Hotels
@@ -35,7 +38,7 @@ namespace Licenta.Controlers
                 return NotFound();
             }
 
-            var hotels = repository.Details(id);               
+            var hotels = repository.Details(id);
             if (hotels == null)
             {
                 return NotFound();
@@ -47,7 +50,8 @@ namespace Licenta.Controlers
         // GET: Hotels/Create
         public IActionResult Create()
         {
-            Hotels hotel = new Hotels();
+           
+            HotelViewModel hotel = new HotelViewModel();
             return View(hotel);
         }
 
@@ -57,14 +61,15 @@ namespace Licenta.Controlers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //ActionResult Create nu merge
-        public async Task<IActionResult> Create ([Bind("IdHotel,Stars,HotelName,DescriptionTable")] Hotels hotels)
+        public async Task<IActionResult> Create([Bind("IdHotel,Stars,HotelName,DescriptionTable,HotelPicts")] HotelViewModel hotels)
         {
             if (ModelState.IsValid)
             {
-
-                repository.CreateHotel(hotels);
+                var HotelSave = hotels.hotel;
+                repository.CreateHotel(HotelSave);
                 return RedirectToAction(nameof(Index));
             }
+            
             return View(hotels);
         }
 
@@ -157,17 +162,20 @@ namespace Licenta.Controlers
 
         // create my http metods
 
-
-        //[HttpPost]
-        //public async Task<IActionResult> SaveHotel ([Bind("Stars,HotelName,DescriptionTable")]Hotels newHotel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(newHotel);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(newHotel);
-        //}
+        private IActionResult HotelDescriptionPage(int? IdHotel)
+        {
+            if(IdHotel == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                Hotels hotelDescriptionViewMode = new Hotels();
+                hotelDescriptionViewMode = _context.Hotels.Where(x => x.IdHotel == IdHotel).FirstOrDefault();
+                return View(hotelDescriptionViewMode);
+            }
+            
+        }
+        
     }
 }

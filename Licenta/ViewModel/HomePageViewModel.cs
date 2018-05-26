@@ -2,6 +2,7 @@
 using Licenta.Entityes.InterFacesForViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -49,14 +50,17 @@ namespace Licenta.ViewModel
         [BindProperty]
         public List<Location> listLocations { get; set; }
 
-        [BindProperty]
-        public int[] AllIdLocations { get; set; }
+       
 
         [BindProperty]
-        public int IdLocation { get; set; }
+        public int? IdLocation { get; set; }
 
         [BindProperty]
-        public List<int> IdFacilities { get; set; }
+        public int[] IdFacilities { get; set; }
+
+
+
+        
         #endregion
     }
 }

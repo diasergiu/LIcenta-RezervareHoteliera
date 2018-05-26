@@ -6,30 +6,61 @@ namespace Licenta.Entityes
 {
     public partial class DBRezervareHotelieraContext : DbContext
     {
+        public virtual DbSet<CreditCard> CreditCard { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<Employes> Employes { get; set; }
         public virtual DbSet<Facilities> Facilities { get; set; }
         public virtual DbSet<FacilitiesHotel> FacilitiesHotel { get; set; }
+        public virtual DbSet<HotelImages> HotelImages { get; set; }
         public virtual DbSet<Hotels> Hotels { get; set; }
         public virtual DbSet<Location> Location { get; set; }
         public virtual DbSet<Reservations> Reservations { get; set; }
         public virtual DbSet<Rooms> Rooms { get; set; }
 
+
         public DBRezervareHotelieraContext(DbContextOptions<DBRezervareHotelieraContext> options) : base(options)
         {
 
         }
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseSqlServer(@"Server=DESKTOP-TPPITPA\SQLEXPRESS;Database=DBRezervareHoteliera;Trusted_Connection=True;");
-//            }
-//        }
+
+        //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //        {
+        //            if (!optionsBuilder.IsConfigured)
+        //            {
+        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+        //                optionsBuilder.UseSqlServer(@"Server=DESKTOP-KIGN8Q0\SQLEXPRESS;Database=DBRezervareHoteliera;Trusted_Connection=True;");
+        //            }
+        //        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CreditCard>(entity =>
+            {
+                entity.HasKey(e => e.IdCard);
+
+                entity.Property(e => e.IdCard)
+                    .HasColumnName("idCard")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.CardExpireDate)
+                    .HasColumnName("cardExpireDate")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.CardNumber)
+                    .HasColumnName("cardNumber")
+                    .HasMaxLength(16)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Cvc).HasColumnName("CVC");
+
+                entity.Property(e => e.IdClient).HasColumnName("idClient");
+
+                entity.HasOne(d => d.IdClientNavigation)
+                    .WithMany(p => p.CreditCard)
+                    .HasForeignKey(d => d.IdClient)
+                    .HasConstraintName("FK__CreditCar__idCli__05D8E0BE");
+            });
+
             modelBuilder.Entity<Customers>(entity =>
             {
                 entity.HasKey(e => e.IdCustomer);
@@ -70,6 +101,8 @@ namespace Licenta.Entityes
             modelBuilder.Entity<Employes>(entity =>
             {
                 entity.HasKey(e => e.Idemploye);
+
+                entity.HasIndex(e => e.IdHotel);
 
                 entity.Property(e => e.Idemploye).HasColumnName("IDEmploye");
 
@@ -115,6 +148,8 @@ namespace Licenta.Entityes
             {
                 entity.HasKey(e => new { e.IdHotel, e.IdFacilities });
 
+                entity.HasIndex(e => e.IdFacilities);
+
                 entity.Property(e => e.IdHotel).HasColumnName("idHotel");
 
                 entity.Property(e => e.IdFacilities).HasColumnName("idFacilities");
@@ -132,6 +167,24 @@ namespace Licenta.Entityes
                     .HasForeignKey(d => d.IdHotel)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Facilitie__idHot__619B8048");
+            });
+
+            modelBuilder.Entity<HotelImages>(entity =>
+            {
+                entity.HasKey(e => e.IdImageHotel);
+
+                entity.Property(e => e.IdImageHotel)
+                    .HasColumnName("idImageHotel")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.IdHotel).HasColumnName("idHotel");
+
+                entity.Property(e => e.ImageHotel).HasColumnType("image");
+
+                entity.HasOne(d => d.IdHotelNavigation)
+                    .WithMany(p => p.HotelImages)
+                    .HasForeignKey(d => d.IdHotel)
+                    .HasConstraintName("FK__HotelImag__idHot__02FC7413");
             });
 
             modelBuilder.Entity<Hotels>(entity =>
@@ -153,6 +206,8 @@ namespace Licenta.Entityes
             modelBuilder.Entity<Location>(entity =>
             {
                 entity.HasKey(e => e.IdLocation);
+
+                entity.HasIndex(e => e.IdHotel);
 
                 entity.Property(e => e.IdLocation).HasColumnName("idLocation");
 
@@ -179,6 +234,10 @@ namespace Licenta.Entityes
             modelBuilder.Entity<Reservations>(entity =>
             {
                 entity.HasKey(e => e.IdReservations);
+
+                entity.HasIndex(e => e.IdCustomer);
+
+                entity.HasIndex(e => e.IdRoom);
 
                 entity.Property(e => e.IdReservations).HasColumnName("idReservations");
 
@@ -208,6 +267,8 @@ namespace Licenta.Entityes
             modelBuilder.Entity<Rooms>(entity =>
             {
                 entity.HasKey(e => e.IdRoom);
+
+                entity.HasIndex(e => e.IdHotel);
 
                 entity.Property(e => e.IdRoom).HasColumnName("idRoom");
 

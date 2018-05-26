@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Licenta.Entityes;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace Licenta.Entityes
+
+namespace Licenta.ViewModel
 {
-    public partial class Hotels
+    public class HotelViewModel
     {
-        public Hotels()
-        {
-            Employes = new HashSet<Employes>();
-            FacilitiesHotel = new HashSet<FacilitiesHotel>();
-            HotelImages = new HashSet<HotelImages>();
-            Location = new HashSet<Location>();
-            Rooms = new HashSet<Rooms>();
-        }
+        public Hotels hotel { get; set; }
+        public List<IFormFile> HotelPicts { get; set; }
+
 
         public int IdHotel { get; set; }
         public string DescriptionTable { get; set; }
@@ -24,5 +24,9 @@ namespace Licenta.Entityes
         public ICollection<HotelImages> HotelImages { get; set; }
         public ICollection<Location> Location { get; set; }
         public ICollection<Rooms> Rooms { get; set; }
+
+
+
+
     }
 }

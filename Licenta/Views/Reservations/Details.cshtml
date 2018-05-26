@@ -1,8 +1,8 @@
 ﻿@model Licenta.Entityes.Reservations
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
 @{
     ViewData["Title"] = "Details";
+	Layout = "_Layout";
 }
 
 <h2>Details</h2>
@@ -37,6 +37,18 @@
         </dd>
     </dl>
 </div>
+
+	<!-- rooms Section --!>
+	<div>
+		<DayPilot:DayPilotScheduler
+			ID="DayPilotScheduler"
+			runat="server">
+				<headerColumns>
+						<DayPilot:RowHeaderColumn title="Room" width="80" />
+						<DayPilot:RowHeaderColumn title="Beds" width="80" />
+				</headerColumns>
+		</DayPilot:DayPilotScheduler>
+	</div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.IdReservations">Edit</a> |
     <a asp-action="Index">Back to List</a>

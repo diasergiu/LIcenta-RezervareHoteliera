@@ -1,62 +1,30 @@
-﻿@using Microsoft.AspNetCore.Http
-@model Licenta.ViewModel.HomePageViewModel
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@model Licenta.ViewModel.HomePageViewModel
 
 @{
     ViewData["Title"] = "Index";
-}
-
-@section Style{
-    <link href="@Url.Content("~/bootstrap-4.1.1-dist/css/bootstrap-grid.css")" rel="stylesheet" type="text/css" ) />
-    <link href="@Url.Content("~/bootstrap-4.1.1-dist/css/bootstrap-reboot.css")" rel="stylesheet" type="text/css" ) />
-    <link href="@Url.Content("~/bootstrap-4.1.1-dist/css/bootstrap.css")" rel="stylesheet)" type="text/css" />
-    <link href="@Url.Content("~/CSS/MainCss.css")" rel="stylesheet" type="text/css" />
-}
-@section Scripe{
-    <script src="@Url.Content("~/bootstrap-4.1.1-dist/js/bootstrap.js")"></script>
+	Layout = "_Layout";
 }
 
 <h2>Chose a Hotel </h2>
 
-<!-- uninpelmented-->
-
-
-<div class="navbar navbar-nav">
-    @if (Context.Session.GetString("IdCustomer") != null)
-    {
-        <ul>
-            <li><a asp-area="" asp-controller="Customers" asp-action="LogOut">logOut</a></li>
-        </ul>
-    }
-    else
-    {
-        <ul>
-            <li><a asp-area="" asp-controller="Customers" asp-action="LogIn">LogIn</a></li>
-            <li><a asp-area="" asp-controller="Customers" asp-action="Create">Sing In</a></li>
-        </ul>
-    }
-</div>
- 
 <div class="row">
     <div class="col-sm-4">
-        <form asp-controller="Home" asp-action="Index" method="post">
-          
-            <br />
-            @for(int i = 0; i < Model.listFacilities.Length; i++)
+        <form  asp-action="filter" asp-controller="Home" method="post">		
+            @for(int i = 0; i < Model.listFacilities.Length; i++)    
             {
-                @Html.TextBoxFor(m => m.listFacilities[i].IdFacilities)
-                @Model.listFacilities[i].FacilitiesName
+				<div class="form-group">
+					<input asp-for="listFacilities[i].IdFacilities" />				
+					@Model.listFacilities[i].FacilitiesName
+				</div>
             }
-            <div class="form-group">                    
-					<select asp-for="@Model.IdLocation" class="form-control">
-						@foreach(var Location in Model.listLocations)
-						{
-							<option>@Location.RegionName</option>
-						}
-					</select>
+            <div class="form-group">      
+					<select asp-for="IdLocation" class="form-control" asp-items="@(new SelectList(Model.listLocations, "IdLocation", "RegionName"))">						
+					</select>					
              </div>
-            <input type="submit" value="Filter" class="btn btn-default"/>
-        </form>
+			 <input type="submit" value="Filter" class="btn btn-default"/>
+        </form>          
+
+
     </div>
 	
     <div class="col-sm-8">
@@ -84,6 +52,3 @@
         </table>
     </div>
 </div>
-
-
-
