@@ -6,28 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Licenta.Entityes;
-using Licenta.Repositories;
-using Licenta.ViewModel;
-using Microsoft.AspNetCore.Http;
 
 namespace Licenta.Controlers
 {
     public class HotelsController : Controller
     {
         private readonly DBRezervareHotelieraContext _context;
-        private HotelsRepositories repository;
 
         public HotelsController(DBRezervareHotelieraContext context)
         {
-            repository = new HotelsRepositories(context);
-            _context = context;// this is to be removed
-
+            _context = context;
         }
 
         // GET: Hotels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Hotels.ToListAsync());
+            var dBRezervareHotelieraContext = _context.Hotels.Include(h => h.IdLocationNavigation);
+            return View(await dBRezervareHotelieraContext.ToListAsync());
         }
 
         // GET: Hotels/Details/5
@@ -38,7 +33,9 @@ namespace Licenta.Controlers
                 return NotFound();
             }
 
-            var hotels = repository.Details(id);
+            var hotels = await _context.Hotels
+                .Include(h => h.IdLocationNavigation)
+                .SingleOrDefaultAsync(m => m.IdHotel == id);
             if (hotels == null)
             {
                 return NotFound();
@@ -50,9 +47,8 @@ namespace Licenta.Controlers
         // GET: Hotels/Create
         public IActionResult Create()
         {
-           
-            HotelViewModel hotel = new HotelViewModel();
-            return View(hotel);
+            ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "IdLocation");
+            return View();
         }
 
         // POST: Hotels/Create
@@ -60,15 +56,15 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //ActionResult Create nu merge
-        public async Task<IActionResult> Create([Bind("IdHotel,Stars,HotelName,DescriptionTable,HotelPicts")] Hotels hotels)
+        public async Task<IActionResult> Create([Bind("IdHotel,DescriptionTable,HotelName,Stars,IdLocation")] Hotels hotels)
         {
             if (ModelState.IsValid)
-            {              
-                repository.CreateHotel(hotels);
+            {
+                _context.Add(hotels);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            
+            ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "IdLocation", hotels.IdLocation);
             return View(hotels);
         }
 
@@ -85,6 +81,7 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
+            ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "IdLocation", hotels.IdLocation);
             return View(hotels);
         }
 
@@ -93,12 +90,12 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> _Edit(/*int id,*/ [Bind("IdHotel,Stars,HotelName,DescriptionTable")] Hotels hotels)
+        public async Task<IActionResult> Edit(int id, [Bind("IdHotel,DescriptionTable,HotelName,Stars,IdLocation")] Hotels hotels)
         {
-            //if (id != hotels.IdHotel)
-            //{
-            //    return NotFound();
-            //}
+            if (id != hotels.IdHotel)
+            {
+                return NotFound();
+            }
 
             if (ModelState.IsValid)
             {
@@ -120,6 +117,7 @@ namespace Licenta.Controlers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "IdLocation", hotels.IdLocation);
             return View(hotels);
         }
 
@@ -132,6 +130,7 @@ namespace Licenta.Controlers
             }
 
             var hotels = await _context.Hotels
+                .Include(h => h.IdLocationNavigation)
                 .SingleOrDefaultAsync(m => m.IdHotel == id);
             if (hotels == null)
             {
@@ -156,25 +155,5 @@ namespace Licenta.Controlers
         {
             return _context.Hotels.Any(e => e.IdHotel == id);
         }
-
-
-
-        // create my http metods
-
-        private IActionResult HotelDescriptionPage(int? IdHotel)
-        {
-            if(IdHotel == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                Hotels hotelDescriptionViewMode = new Hotels();
-                hotelDescriptionViewMode = _context.Hotels.Where(x => x.IdHotel == IdHotel).FirstOrDefault();
-                return View(hotelDescriptionViewMode);
-            }
-            
-        }
-        
     }
 }

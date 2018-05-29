@@ -1,5 +1,5 @@
 ﻿@model Licenta.Entityes.Location
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
     ViewData["Title"] = "Create";
 	Layout = "_Layout";
@@ -14,9 +14,9 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="RegionName" class="control-label"></label>
-                <input asp-for="RegionName" class="form-control" />
-                <span asp-validation-for="RegionName" class="text-danger"></span>
+                <label asp-for="NrStreat" class="control-label"></label>
+                <input asp-for="NrStreat" class="form-control" />
+                <span asp-validation-for="NrStreat" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="StreatName" class="control-label"></label>
@@ -24,13 +24,14 @@
                 <span asp-validation-for="StreatName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NrStreat" class="control-label"></label>
-                <input asp-for="NrStreat" class="form-control" />
-                <span asp-validation-for="NrStreat" class="text-danger"></span>
+                <label asp-for="RegionName" class="control-label"></label>
+                <input asp-for="RegionName" class="form-control" />
+                <span asp-validation-for="RegionName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdHotel" class="control-label"></label>
-                <select asp-for="IdHotel" class="form-control" asp-items="ViewBag.idHotel"></select>
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

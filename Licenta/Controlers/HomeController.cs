@@ -38,15 +38,13 @@ namespace Licenta.Controlers
 
             if (ModelState.IsValid)
             {
-                var LocationHotelQuery = (from H in _context.Hotels
-                                          join L in _context.Location
-                                          on H.IdHotel equals L.IdHotel
-                                          where L.IdLocation == IdLocation
+                var LocationHotelQuery = (from H in _context.Hotels                                         
+                                          where H.IdLocation == IdLocation
                                           //join FH in _context.FacilitiesHotel
                                           //on H.IdHotel equals FH.IdHotel
                                           //where IdFacilities == (select IdFacilities from _context.FacilitiesHotel)
-                                          select H  ).ToList();
-                
+                                          select H).ToList();
+
                 foreach (var facilities in IdFacilities)
                 {
                     //var LocationHotelQuery = (from H in _context.Hotels
@@ -57,10 +55,10 @@ namespace Licenta.Controlers
                     //                       where F.IdFacilities == facilities
                     //                       select H).ToList();
                     LocationHotelQuery = (from H in LocationHotelQuery
-                                   join FH in _context.FacilitiesHotel
-                                   on H.IdHotel equals FH.IdHotel
-                                   where facilities == FH.IdFacilities
-                                   select H).ToList();
+                                          join FH in _context.FacilitiesHotel
+                                          on H.IdHotel equals FH.IdHotel
+                                          where facilities == FH.IdFacilities
+                                          select H).ToList();
                 }
 
                 _homePageviewmode.listHotels = LocationHotelQuery;

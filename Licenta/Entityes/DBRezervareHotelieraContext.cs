@@ -22,7 +22,6 @@ namespace Licenta.Entityes
         {
 
         }
-
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //        {
         //            if (!optionsBuilder.IsConfigured)
@@ -201,17 +200,22 @@ namespace Licenta.Entityes
                 entity.Property(e => e.HotelName)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.IdLocationNavigation)
+                    .WithMany(p => p.Hotels)
+                    .HasForeignKey(d => d.IdLocation)
+                    .HasConstraintName("FK__Hotels__IdLocati__3A4CA8FD");
             });
 
             modelBuilder.Entity<Location>(entity =>
             {
                 entity.HasKey(e => e.IdLocation);
 
-                entity.HasIndex(e => e.IdHotel);
-
                 entity.Property(e => e.IdLocation).HasColumnName("idLocation");
 
-                entity.Property(e => e.IdHotel).HasColumnName("idHotel");
+                entity.Property(e => e.Country)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.NrStreat).HasColumnName("nrStreat");
 
@@ -224,11 +228,6 @@ namespace Licenta.Entityes
                     .HasColumnName("streatName")
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.IdHotelNavigation)
-                    .WithMany(p => p.Location)
-                    .HasForeignKey(d => d.IdHotel)
-                    .HasConstraintName("FK__Location__idHote__5165187F");
             });
 
             modelBuilder.Entity<Reservations>(entity =>

@@ -21,8 +21,7 @@ namespace Licenta.Controlers
         // GET: Locations
         public async Task<IActionResult> Index()
         {
-            var dBRezervareHotelieraContext = _context.Location.Include(l => l.IdHotelNavigation);
-            return View(await dBRezervareHotelieraContext.ToListAsync());
+            return View(await _context.Location.ToListAsync());
         }
 
         // GET: Locations/Details/5
@@ -34,7 +33,6 @@ namespace Licenta.Controlers
             }
 
             var location = await _context.Location
-                .Include(l => l.IdHotelNavigation)
                 .SingleOrDefaultAsync(m => m.IdLocation == id);
             if (location == null)
             {
@@ -47,7 +45,6 @@ namespace Licenta.Controlers
         // GET: Locations/Create
         public IActionResult Create()
         {
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel");
             return View();
         }
 
@@ -56,7 +53,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdLocation,RegionName,StreatName,NrStreat,IdHotel")] Location location)
+        public async Task<IActionResult> Create([Bind("IdLocation,NrStreat,StreatName,RegionName,Country")] Location location)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +61,6 @@ namespace Licenta.Controlers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", location.IdHotel);
             return View(location);
         }
 
@@ -81,7 +77,6 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", location.IdHotel);
             return View(location);
         }
 
@@ -90,7 +85,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdLocation,RegionName,StreatName,NrStreat,IdHotel")] Location location)
+        public async Task<IActionResult> Edit(int id, [Bind("IdLocation,NrStreat,StreatName,RegionName,Country")] Location location)
         {
             if (id != location.IdLocation)
             {
@@ -117,7 +112,6 @@ namespace Licenta.Controlers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", location.IdHotel);
             return View(location);
         }
 
@@ -130,7 +124,6 @@ namespace Licenta.Controlers
             }
 
             var location = await _context.Location
-                .Include(l => l.IdHotelNavigation)
                 .SingleOrDefaultAsync(m => m.IdLocation == id);
             if (location == null)
             {

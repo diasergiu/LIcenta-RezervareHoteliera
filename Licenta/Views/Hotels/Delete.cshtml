@@ -1,5 +1,4 @@
 ﻿@model Licenta.Entityes.Hotels
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Delete";
@@ -14,10 +13,10 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Stars)
+            @Html.DisplayNameFor(model => model.DescriptionTable)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Stars)
+            @Html.DisplayFor(model => model.DescriptionTable)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.HotelName)
@@ -26,14 +25,20 @@
             @Html.DisplayFor(model => model.HotelName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DescriptionTable)
+            @Html.DisplayNameFor(model => model.Stars)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DescriptionTable)
+            @Html.DisplayFor(model => model.Stars)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdLocationNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdLocationNavigation.IdLocation)
         </dd>
     </dl>
-
-    <form asp-action="Delete" methid="post">
+    
+    <form asp-action="Delete">
         <input type="hidden" asp-for="IdHotel" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
