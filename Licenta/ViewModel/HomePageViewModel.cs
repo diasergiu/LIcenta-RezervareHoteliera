@@ -52,10 +52,8 @@ namespace Licenta.ViewModel
 
        
 
-        [BindProperty]
         public int? IdLocation { get; set; }
 
-        [BindProperty]
         public int[] IdFacilities { get; set; }
 
 

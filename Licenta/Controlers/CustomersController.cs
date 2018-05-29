@@ -193,7 +193,7 @@ namespace Licenta.Controlers
         public ActionResult LogOut()
         {
             HttpContext.Session.Clear();
-            return RedirectToPage("index");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         #endregion

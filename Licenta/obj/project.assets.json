@@ -15452,11 +15452,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\diase\\source\\repos\\RezervareHoteliera\\Licenta\\Licenta.csproj",
+      "projectUniqueName": "C:\\Users\\diase\\source\\repos\\LIcenta-RezervareHoteliera\\Licenta\\Licenta.csproj",
       "projectName": "Licenta",
-      "projectPath": "C:\\Users\\diase\\source\\repos\\RezervareHoteliera\\Licenta\\Licenta.csproj",
+      "projectPath": "C:\\Users\\diase\\source\\repos\\LIcenta-RezervareHoteliera\\Licenta\\Licenta.csproj",
       "packagesPath": "C:\\Users\\diase\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\diase\\source\\repos\\RezervareHoteliera\\Licenta\\obj\\",
+      "outputPath": "C:\\Users\\diase\\source\\repos\\LIcenta-RezervareHoteliera\\Licenta\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

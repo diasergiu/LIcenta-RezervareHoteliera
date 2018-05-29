@@ -9,14 +9,16 @@
 
 <div class="row">
     <div class="col-sm-4">
-        <form  asp-action="filter" asp-controller="Home" method="post">		
+       <form  asp-action="index" method="post">
             @for(int i = 0; i < Model.listFacilities.Length; i++)    
             {
 				<div class="form-group">
-					<input asp-for="listFacilities[i].IdFacilities" />				
+					<input asp-for="IdFacilities[i]" />				
 					@Model.listFacilities[i].FacilitiesName
 				</div>
-            }
+            } 
+					
+			
             <div class="form-group">      
 					<select asp-for="IdLocation" class="form-control" asp-items="@(new SelectList(Model.listLocations, "IdLocation", "RegionName"))">						
 					</select>					

@@ -10,12 +10,26 @@
 			<link type="text/css" href="@Url.Content("~/bootstrap-4.1.1-dist/css/bootstrap-grid.css")" rel="stylesheet" />
 			<link type="text/css" href="@Url.Content("~/bootstrap-4.1.1-dist/css/bootstrap-reboot.css")" rel="stylesheet" />
 			
+			<link type="text/css" href="@Url.Content("~/CSS/CSS.css")" rel="stylesheet" />
+
 			<script src="@Url.Content("~/bootstrap-4.1.1-dist/js/bootstrap.js")"></script>
 		</environment>
 </head>
 <body>
 <div>
-<div class="navbar navbar-nav">
+<nav class="navbar navbar-inverse">
+<div class="container-fluid">
+	<div class="navbar-header">
+      <a class="navbar-brand" href="/Home/index">HotelsHotels</a>
+    </div>
+	<ul>
+		<li><a href="/Hotels">Hotels Manager</a></li>
+		<li><a href="/Customers">Users Management</a></li>
+		<li><a href="/Locations"> Location Manager </a></li>
+		<li><a href="/Reservations"> Reservations Manager </a></li>
+		<li><a href="/Rooms"> Rooms Manager </a></li>
+		<li><a href="/Employes"> Employes </a></li>
+	</ul>
     @if (Context.Session.GetString("IdCustomer") != null)
     {
         <ul>
@@ -30,8 +44,10 @@
         </ul>
     }
 </div>
+</nav>
 	@RenderBody()
 </div>
+
 </body>
 
 

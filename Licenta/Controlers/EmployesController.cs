@@ -5,27 +5,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Licenta.Entityes;
 
-namespace Licenta.Controlers
+namespace Licenta.Entityes
 {
-    public class LocationsController : Controller
+    public class EmployesController : Controller
     {
         private readonly DBRezervareHotelieraContext _context;
 
-        public LocationsController(DBRezervareHotelieraContext context)
+        public EmployesController(DBRezervareHotelieraContext context)
         {
             _context = context;
         }
 
-        // GET: Locations
+        // GET: Employes
         public async Task<IActionResult> Index()
         {
-            var dBRezervareHotelieraContext = _context.Location.Include(l => l.IdHotelNavigation);
+            var dBRezervareHotelieraContext = _context.Employes.Include(e => e.IdHotelNavigation);
             return View(await dBRezervareHotelieraContext.ToListAsync());
         }
 
-        // GET: Locations/Details/5
+        // GET: Employes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,42 +32,42 @@ namespace Licenta.Controlers
                 return NotFound();
             }
 
-            var location = await _context.Location
-                .Include(l => l.IdHotelNavigation)
-                .SingleOrDefaultAsync(m => m.IdLocation == id);
-            if (location == null)
+            var employes = await _context.Employes
+                .Include(e => e.IdHotelNavigation)
+                .SingleOrDefaultAsync(m => m.Idemploye == id);
+            if (employes == null)
             {
                 return NotFound();
             }
 
-            return View(location);
+            return View(employes);
         }
 
-        // GET: Locations/Create
+        // GET: Employes/Create
         public IActionResult Create()
         {
             ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel");
             return View();
         }
 
-        // POST: Locations/Create
+        // POST: Employes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdLocation,RegionName,StreatName,NrStreat,IdHotel")] Location location)
+        public async Task<IActionResult> Create([Bind("Idemploye,EmployType,FirstName,IdHotel,LastName,Password,Username")] Employes employes)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(location);
+                _context.Add(employes);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", location.IdHotel);
-            return View(location);
+            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", employes.IdHotel);
+            return View(employes);
         }
 
-        // GET: Locations/Edit/5
+        // GET: Employes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,23 +75,23 @@ namespace Licenta.Controlers
                 return NotFound();
             }
 
-            var location = await _context.Location.SingleOrDefaultAsync(m => m.IdLocation == id);
-            if (location == null)
+            var employes = await _context.Employes.SingleOrDefaultAsync(m => m.Idemploye == id);
+            if (employes == null)
             {
                 return NotFound();
             }
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", location.IdHotel);
-            return View(location);
+            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", employes.IdHotel);
+            return View(employes);
         }
 
-        // POST: Locations/Edit/5
+        // POST: Employes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdLocation,RegionName,StreatName,NrStreat,IdHotel")] Location location)
+        public async Task<IActionResult> Edit(int id, [Bind("Idemploye,EmployType,FirstName,IdHotel,LastName,Password,Username")] Employes employes)
         {
-            if (id != location.IdLocation)
+            if (id != employes.Idemploye)
             {
                 return NotFound();
             }
@@ -101,12 +100,12 @@ namespace Licenta.Controlers
             {
                 try
                 {
-                    _context.Update(location);
+                    _context.Update(employes);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LocationExists(location.IdLocation))
+                    if (!EmployesExists(employes.Idemploye))
                     {
                         return NotFound();
                     }
@@ -117,11 +116,11 @@ namespace Licenta.Controlers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", location.IdHotel);
-            return View(location);
+            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", employes.IdHotel);
+            return View(employes);
         }
 
-        // GET: Locations/Delete/5
+        // GET: Employes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,31 +128,31 @@ namespace Licenta.Controlers
                 return NotFound();
             }
 
-            var location = await _context.Location
-                .Include(l => l.IdHotelNavigation)
-                .SingleOrDefaultAsync(m => m.IdLocation == id);
-            if (location == null)
+            var employes = await _context.Employes
+                .Include(e => e.IdHotelNavigation)
+                .SingleOrDefaultAsync(m => m.Idemploye == id);
+            if (employes == null)
             {
                 return NotFound();
             }
 
-            return View(location);
+            return View(employes);
         }
 
-        // POST: Locations/Delete/5
+        // POST: Employes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var location = await _context.Location.SingleOrDefaultAsync(m => m.IdLocation == id);
-            _context.Location.Remove(location);
+            var employes = await _context.Employes.SingleOrDefaultAsync(m => m.Idemploye == id);
+            _context.Employes.Remove(employes);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LocationExists(int id)
+        private bool EmployesExists(int id)
         {
-            return _context.Location.Any(e => e.IdLocation == id);
+            return _context.Employes.Any(e => e.Idemploye == id);
         }
     }
 }

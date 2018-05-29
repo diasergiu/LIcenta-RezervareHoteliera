@@ -61,12 +61,11 @@ namespace Licenta.Controlers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //ActionResult Create nu merge
-        public async Task<IActionResult> Create([Bind("IdHotel,Stars,HotelName,DescriptionTable,HotelPicts")] HotelViewModel hotels)
+        public async Task<IActionResult> Create([Bind("IdHotel,Stars,HotelName,DescriptionTable,HotelPicts")] Hotels hotels)
         {
             if (ModelState.IsValid)
-            {
-                var HotelSave = hotels.hotel;
-                repository.CreateHotel(HotelSave);
+            {              
+                repository.CreateHotel(hotels);
                 return RedirectToAction(nameof(Index));
             }
             
