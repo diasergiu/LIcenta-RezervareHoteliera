@@ -1,11 +1,19 @@
-li{
+li {
     display: inline;
 }
 
-.navbar{
-    background-color: black;    
+.navbar {
+    background-color: black;
 }
-.navbar li{
-    color: white;
-    padding-left: 5px;
-}
+
+    .navbar li {
+        color: white;
+        padding-left: 5px;
+        color: #999966;
+        width: 100%;
+    }
+
+        .navbar li a:hover {
+            /*color: white;*/
+            text-decoration: none;
+        }

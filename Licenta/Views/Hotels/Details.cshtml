@@ -1,4 +1,4 @@
-﻿@model Licenta.Entityes.Hotels
+﻿@model Licenta.ViewModel.HotelDescriptionPageViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -30,14 +30,43 @@
             @Html.DisplayFor(model => model.Stars)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.IdLocationNavigation)
+            @Html.DisplayNameFor(model => model.IdLocationNavigation.RegionName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.IdLocationNavigation.IdLocation)
+            @Html.DisplayFor(model => model.IdLocationNavigation.RegionName)
         </dd>
     </dl>
+
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.IdHotel">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<form  asp-controller="Reservations" asp-action="CreateReservation" method="post">
+	<table class="table table-striped">
+	
+            <thead>
+				<tr>
+					<input asp-for="CheckDate" class="form-control" Value="CheckDate" Style="padding-top:5px,padding-top:5px"/>
+					<input asp-for="OutDate" class="form-control" Value="OutDate" Style="padding-top:5px,padding-top:5px"/>
+					@Html.HiddenFor(modelItem => @Model.IdUser)
+				</tr>
+                <tr>
+                    <td>Room</td>
+                    <td>Beds</td>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var rooms in Model.Rooms)
+                {
+                    <tr>
+                        <td> @Html.DisplayFor(modelIten => rooms.RoomNumber)</td>
+                        <td> @Html.DisplayFor(modelIten => rooms.Beds)</td>
+						@Html.HiddenFor(modelItem => @Model.Rooms.Where(x => x.IdHotel == rooms.IdHotel).FirstOrDefault().IdRoom)
+						
+					
+						<td><input type="submit" value="Make Reservation" /></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+		</form>
 </div>

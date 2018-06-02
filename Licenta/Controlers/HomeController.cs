@@ -29,35 +29,36 @@ namespace Licenta.Controlers
             return View(homePageViewModel);
         }
 
-        //[HttpPost("[controller]")]
         [HttpPost]
-        //[ActionName("filter")]
-        public IActionResult index(int[] IdFacilities, int IdLocation)
+        public IActionResult index(Facilities[] listFacilities, int IdLocation)
         {
             HomePageViewModel _homePageviewmode = new HomePageViewModel();
 
             if (ModelState.IsValid)
             {
-                var LocationHotelQuery = (from H in _context.Hotels                                         
+                List<Hotels> LocationHotelQuery = new List<Hotels>();
+                if (IdLocation != 0)
+                { 
+                LocationHotelQuery = (from H in _context.Hotels
                                           where H.IdLocation == IdLocation
-                                          //join FH in _context.FacilitiesHotel
-                                          //on H.IdHotel equals FH.IdHotel
-                                          //where IdFacilities == (select IdFacilities from _context.FacilitiesHotel)
                                           select H).ToList();
-
-                foreach (var facilities in IdFacilities)
+                }
+                else
                 {
-                    //var LocationHotelQuery = (from H in _context.Hotels
-                    //                       join FH in _context.FacilitiesHotel
-                    //                       on H.IdHotel equals FH.IdHotel
-                    //                       join F in _context.Facilities
-                    //                       on FH.IdFacilities equals F.IdFacilities
-                    //                       where F.IdFacilities == facilities
-                    //                       select H).ToList();
+                    LocationHotelQuery = _context.Hotels.ToList();
+                }
+                List<int> SelectedFacilities = new List<int>();
+                for(int i = 0; i < listFacilities.Length; i++)
+                {
+                    if (listFacilities[i].IsChecked)
+                        SelectedFacilities.Add(listFacilities[i].IdFacilities);
+                }
+                foreach(var item in SelectedFacilities)
+                {
                     LocationHotelQuery = (from H in LocationHotelQuery
                                           join FH in _context.FacilitiesHotel
                                           on H.IdHotel equals FH.IdHotel
-                                          where facilities == FH.IdFacilities
+                                          where item == FH.IdFacilities
                                           select H).ToList();
                 }
 
@@ -65,7 +66,7 @@ namespace Licenta.Controlers
                 _homePageviewmode.listFacilities = _context.Facilities.ToArray();
                 _homePageviewmode.listLocations = _context.Location.ToList();
                 return View(_homePageviewmode);
-            }
+            }        
             _homePageviewmode.listHotels = _context.Hotels.ToList();
             _homePageviewmode.listFacilities = _context.Facilities.ToArray();
             _homePageviewmode.listLocations = _context.Location.ToList();

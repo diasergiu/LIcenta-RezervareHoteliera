@@ -13,14 +13,17 @@
             @for(int i = 0; i < Model.listFacilities.Length; i++)    
             {
 				<div class="form-group">
-					<input asp-for="IdFacilities[i]" />				
-					@Model.listFacilities[i].FacilitiesName
+					<input asp-for="@Model.listFacilities[i].IsChecked"  />				
+					<label asp-for="@Model.listFacilities[i].IsChecked">@Model.listFacilities[i].FacilitiesName</label>
+					@Html.HiddenFor( x=> @Model.listFacilities[i].IdFacilities)
+					@Html.HiddenFor( x=> @Model.listFacilities[i].FacilitiesName)
 				</div>
             } 
 					
 			
             <div class="form-group">      
-					<select asp-for="IdLocation" class="form-control" asp-items="@(new SelectList(Model.listLocations, "IdLocation", "RegionName"))">						
+					<select asp-for="IdLocation" class="form-control" asp-items="@(new SelectList(Model.listLocations, "IdLocation", "RegionName"))">
+						<option value="0">Chose o country </option>
 					</select>					
              </div>
 			 <input type="submit" value="Filter" class="btn btn-default"/>

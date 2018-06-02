@@ -141,6 +141,8 @@ namespace Licenta.Entityes
                     .HasColumnName("facilitiesName")
                     .HasMaxLength(50)
                     .IsUnicode(false);
+                entity.Property(e => e.IsChecked)
+                .HasColumnName("IsChecked");
             });
 
             modelBuilder.Entity<FacilitiesHotel>(entity =>

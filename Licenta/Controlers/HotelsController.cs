@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Licenta.Entityes;
+using Licenta.ViewModel;
+using Microsoft.AspNetCore.Http;
 
 namespace Licenta.Controlers
 {
@@ -32,6 +34,7 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
+            HotelDescriptionPageViewModel _Hotel = new HotelDescriptionPageViewModel();
 
             var hotels = await _context.Hotels
                 .Include(h => h.IdLocationNavigation)
@@ -40,8 +43,17 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
+            _Hotel.IdHotel = hotels.IdHotel;
+            _Hotel.HotelName = hotels.HotelName;
+            _Hotel.DescriptionTable = hotels.DescriptionTable;
+            _Hotel.Stars = hotels.Stars;
+            _Hotel.IdLocationNavigation = hotels.IdLocationNavigation;
 
-            return View(hotels);
+            _Hotel.Rooms = _context.Rooms.Where(x => x.IdHotel == id).ToList();
+            var IdCustommer = HttpContext.Session.GetString("IdCustomer");
+            //ViewData["IdCustomer"] ;
+            _Hotel.IdUser = Convert.ToInt32(IdCustommer);
+            return View(_Hotel);
         }
 
         // GET: Hotels/Create
@@ -155,5 +167,8 @@ namespace Licenta.Controlers
         {
             return _context.Hotels.Any(e => e.IdHotel == id);
         }
+
+
+       
     }
 }

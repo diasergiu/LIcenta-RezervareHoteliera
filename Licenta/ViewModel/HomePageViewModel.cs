@@ -56,9 +56,9 @@ namespace Licenta.ViewModel
 
         public int[] IdFacilities { get; set; }
 
-
-
         
+
+
         #endregion
     }
 }

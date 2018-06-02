@@ -11,7 +11,6 @@ namespace Licenta.ViewModel
     public class HotelViewModel
     {
         public Hotels hotel { get; set; }
-        public List<IFormFile> HotelPicts { get; set; }
 
 
         public int IdHotel { get; set; }

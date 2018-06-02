@@ -161,5 +161,24 @@ namespace Licenta.Controlers
         {
             return _context.Reservations.Any(e => e.IdReservations == id);
         }
+
+        public async Task<IActionResult> CreateReservation(DateTime CheckDate, DateTime OutDate, int IdRoom,int IdUser)
+        {
+
+        if(ModelState != null)
+            {
+                Reservations newReservation = new Reservations();
+                newReservation.CheckIn = CheckDate;
+                newReservation.CheckOut = OutDate;
+                newReservation.IdRoom = IdRoom;
+                newReservation.IdCustomer = IdUser;
+
+                _context.Add(newReservation);
+                await _context.SaveChangesAsync();
+
+            }
+        
+            return Redirect("/Hotels");
+        }
     }
 }
