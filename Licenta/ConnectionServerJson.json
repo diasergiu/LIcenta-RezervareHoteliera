@@ -1,5 +1,6 @@
 ﻿{
   "ConnectionStrings": {
-    "DefaultConnection": "Server=DESKTOP-KIGN8Q0\\SQLEXPRESS;Database=DBRezervareHoteliera;Trusted_Connection=True;"
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=DBRezervareHoteliera;Trusted_Connection=True;"
   }
 }
+//DESKTOP-KIGN8Q0\\SQLEXPRESS

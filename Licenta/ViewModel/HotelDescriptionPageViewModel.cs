@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -24,8 +25,10 @@ namespace Licenta.ViewModel
         public int? Stars { get; set; }
         public int? IdLocation { get; set; }
 
-        public DateTime CheckDate { get; set; }
-        public DateTime OutDate { get; set; }
+        [Required()]
+        public DateTime CheckIn { get; set; }
+        [Required()]
+        public DateTime CheckOut { get; set; }
         public int IdUser { get; set; }
 
         public Location IdLocationNavigation { get; set; }

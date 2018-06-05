@@ -162,14 +162,14 @@ namespace Licenta.Controlers
             return _context.Reservations.Any(e => e.IdReservations == id);
         }
 
-        public async Task<IActionResult> CreateReservation(DateTime CheckDate, DateTime OutDate, int IdRoom,int IdUser)
+        public async Task<IActionResult> CreateReservation(DateTime CheckIn, DateTime CheckOut, int IdRoom,int IdUser)
         {
 
         if(ModelState != null)
             {
                 Reservations newReservation = new Reservations();
-                newReservation.CheckIn = CheckDate;
-                newReservation.CheckOut = OutDate;
+                newReservation.CheckIn = CheckIn;
+                newReservation.CheckOut = CheckOut;
                 newReservation.IdRoom = IdRoom;
                 newReservation.IdCustomer = IdUser;
 
