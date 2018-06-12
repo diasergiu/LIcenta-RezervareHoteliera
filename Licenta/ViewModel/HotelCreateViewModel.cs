@@ -1,18 +1,15 @@
-﻿using System;
+﻿using Licenta.Entityes;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace Licenta.Entityes
+
+
+namespace Licenta.ViewModel
 {
-    public partial class Hotels
-    {
-        public Hotels()
-        {
-            Employes = new HashSet<Employes>();
-            FacilitiesHotel = new HashSet<FacilitiesHotel>();
-            HotelImages = new HashSet<HotelImages>();
-            Rooms = new HashSet<Rooms>();
-        }
-
+	public class HotelCreateViewModel 
+	{
         public int IdHotel { get; set; }
         public string DescriptionTable { get; set; }
         public string HotelName { get; set; }
@@ -25,5 +22,10 @@ namespace Licenta.Entityes
         public ICollection<HotelImages> HotelImages { get; set; }
         public ICollection<Rooms> Rooms { get; set; }
 
+        public int IdImageHotel { get; set; }
+        public byte[] ImageHotel { get; set; }
+
+        public List<Byte[]> ImagesHotel { get; set; }
+        
     }
 }

@@ -17,7 +17,6 @@ namespace Licenta.Entityes
         public virtual DbSet<Reservations> Reservations { get; set; }
         public virtual DbSet<Rooms> Rooms { get; set; }
 
-
         public DBRezervareHotelieraContext(DbContextOptions<DBRezervareHotelieraContext> options) : base(options)
         {
 
@@ -91,6 +90,11 @@ namespace Licenta.Entityes
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
+                entity.Property(e => e.TypeUser)
+                    .HasColumnName("typeUser")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Username)
                     .HasColumnName("username")
                     .HasMaxLength(50)
@@ -141,8 +145,6 @@ namespace Licenta.Entityes
                     .HasColumnName("facilitiesName")
                     .HasMaxLength(50)
                     .IsUnicode(false);
-                entity.Property(e => e.IsChecked)
-                .HasColumnName("IsChecked");
             });
 
             modelBuilder.Entity<FacilitiesHotel>(entity =>
@@ -274,8 +276,6 @@ namespace Licenta.Entityes
                 entity.Property(e => e.IdRoom).HasColumnName("idRoom");
 
                 entity.Property(e => e.IdHotel).HasColumnName("idHotel");
-
-                entity.Property(e => e.Reserved).HasColumnName("reserved");
 
                 entity.Property(e => e.RoomNumber).HasColumnName("roomNumber");
 

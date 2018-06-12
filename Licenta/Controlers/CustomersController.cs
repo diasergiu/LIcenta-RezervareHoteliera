@@ -58,6 +58,7 @@ namespace Licenta.Controlers
         {
             if (ModelState.IsValid)
             {
+                customers.TypeUser = "Normal User";
                 _context.Add(customers);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +87,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCustomer,FirstName,LastName,Username,Password,Email,Phone")] Customers customers)
+        public async Task<IActionResult> Edit(int id, [Bind("IdCustomer,FirstName,LastName,Username,Password,Email,Phone,TypeUser")] Customers customers)
         {
             if (id != customers.IdCustomer)
             {
@@ -167,6 +168,7 @@ namespace Licenta.Controlers
             {
                 HttpContext.Session.SetString("IdCustomer", LoginCustomer.IdCustomer.ToString());
                 HttpContext.Session.SetString("Username", LoginCustomer.Username);
+                HttpContext.Session.SetString("TypeUser", LoginCustomer.TypeUser);
                 return RedirectToAction("Welcome");
             }
             else

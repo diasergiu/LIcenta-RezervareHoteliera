@@ -11,12 +11,29 @@
           "lib/Antlr3.Runtime.dll": {}
         }
       },
+      "bootstrap/4.1.1": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "[3.0.0, 4.0.0)",
+          "popper.js": "[1.14.0, 2.0.0)"
+        }
+      },
+      "bootstrap.sass/4.1.1": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "[3.0.0, 4.0.0)",
+          "popper.js": "[1.14.0, 2.0.0)"
+        }
+      },
       "Bower/1.3.11": {
         "type": "package",
         "dependencies": {
           "NoGit": "0.0.8",
           "Node.js": "0.10.28"
         }
+      },
+      "jQuery/3.0.0": {
+        "type": "package"
       },
       "Libuv/1.10.0": {
         "type": "package",
@@ -2929,6 +2946,9 @@
           "lib/netstandard1.3/NuGet.Frameworks.dll": {}
         }
       },
+      "popper.js/1.14.0": {
+        "type": "package"
+      },
       "Remotion.Linq/2.1.1": {
         "type": "package",
         "dependencies": {
@@ -5103,6 +5123,135 @@
         "lib/Antlr3.Runtime.pdb"
       ]
     },
+    "bootstrap/4.1.1": {
+      "sha512": "GAW8nugGorUxJRAIYrJ69tantpLlosqABI2cen74ipe3XbllvV2efdskNLXlt9vpsKL6JZjopLN56ib7R2cmJA==",
+      "type": "package",
+      "path": "bootstrap/4.1.1",
+      "files": [
+        "bootstrap.4.1.1.nupkg.sha512",
+        "bootstrap.nuspec",
+        "content/Content/bootstrap-grid.css",
+        "content/Content/bootstrap-grid.css.map",
+        "content/Content/bootstrap-grid.min.css",
+        "content/Content/bootstrap-grid.min.css.map",
+        "content/Content/bootstrap-reboot.css",
+        "content/Content/bootstrap-reboot.css.map",
+        "content/Content/bootstrap-reboot.min.css",
+        "content/Content/bootstrap-reboot.min.css.map",
+        "content/Content/bootstrap.css",
+        "content/Content/bootstrap.css.map",
+        "content/Content/bootstrap.min.css",
+        "content/Content/bootstrap.min.css.map",
+        "content/Scripts/bootstrap.bundle.js",
+        "content/Scripts/bootstrap.bundle.js.map",
+        "content/Scripts/bootstrap.bundle.min.js",
+        "content/Scripts/bootstrap.bundle.min.js.map",
+        "content/Scripts/bootstrap.js",
+        "content/Scripts/bootstrap.js.map",
+        "content/Scripts/bootstrap.min.js",
+        "content/Scripts/bootstrap.min.js.map"
+      ]
+    },
+    "bootstrap.sass/4.1.1": {
+      "sha512": "bGUqVJfplSuuTTx4Ev+7YT5d8+Y7fv/7aiUJH+97DNeLaiceAFGuYRVfdfTWPZTB9zS1f6e7vPod6OXWSPyHXQ==",
+      "type": "package",
+      "path": "bootstrap.sass/4.1.1",
+      "files": [
+        "bootstrap.sass.4.1.1.nupkg.sha512",
+        "bootstrap.sass.nuspec",
+        "content/Content/bootstrap/_alert.scss",
+        "content/Content/bootstrap/_badge.scss",
+        "content/Content/bootstrap/_breadcrumb.scss",
+        "content/Content/bootstrap/_button-group.scss",
+        "content/Content/bootstrap/_buttons.scss",
+        "content/Content/bootstrap/_card.scss",
+        "content/Content/bootstrap/_carousel.scss",
+        "content/Content/bootstrap/_close.scss",
+        "content/Content/bootstrap/_code.scss",
+        "content/Content/bootstrap/_custom-forms.scss",
+        "content/Content/bootstrap/_dropdown.scss",
+        "content/Content/bootstrap/_forms.scss",
+        "content/Content/bootstrap/_functions.scss",
+        "content/Content/bootstrap/_grid.scss",
+        "content/Content/bootstrap/_images.scss",
+        "content/Content/bootstrap/_input-group.scss",
+        "content/Content/bootstrap/_jumbotron.scss",
+        "content/Content/bootstrap/_list-group.scss",
+        "content/Content/bootstrap/_media.scss",
+        "content/Content/bootstrap/_mixins.scss",
+        "content/Content/bootstrap/_modal.scss",
+        "content/Content/bootstrap/_nav.scss",
+        "content/Content/bootstrap/_navbar.scss",
+        "content/Content/bootstrap/_pagination.scss",
+        "content/Content/bootstrap/_popover.scss",
+        "content/Content/bootstrap/_print.scss",
+        "content/Content/bootstrap/_progress.scss",
+        "content/Content/bootstrap/_reboot.scss",
+        "content/Content/bootstrap/_root.scss",
+        "content/Content/bootstrap/_tables.scss",
+        "content/Content/bootstrap/_tooltip.scss",
+        "content/Content/bootstrap/_transitions.scss",
+        "content/Content/bootstrap/_type.scss",
+        "content/Content/bootstrap/_utilities.scss",
+        "content/Content/bootstrap/_variables.scss",
+        "content/Content/bootstrap/bootstrap-grid.scss",
+        "content/Content/bootstrap/bootstrap-reboot.scss",
+        "content/Content/bootstrap/bootstrap.scss",
+        "content/Content/bootstrap/mixins/_alert.scss",
+        "content/Content/bootstrap/mixins/_background-variant.scss",
+        "content/Content/bootstrap/mixins/_badge.scss",
+        "content/Content/bootstrap/mixins/_border-radius.scss",
+        "content/Content/bootstrap/mixins/_box-shadow.scss",
+        "content/Content/bootstrap/mixins/_breakpoints.scss",
+        "content/Content/bootstrap/mixins/_buttons.scss",
+        "content/Content/bootstrap/mixins/_caret.scss",
+        "content/Content/bootstrap/mixins/_clearfix.scss",
+        "content/Content/bootstrap/mixins/_float.scss",
+        "content/Content/bootstrap/mixins/_forms.scss",
+        "content/Content/bootstrap/mixins/_gradients.scss",
+        "content/Content/bootstrap/mixins/_grid-framework.scss",
+        "content/Content/bootstrap/mixins/_grid.scss",
+        "content/Content/bootstrap/mixins/_hover.scss",
+        "content/Content/bootstrap/mixins/_image.scss",
+        "content/Content/bootstrap/mixins/_list-group.scss",
+        "content/Content/bootstrap/mixins/_lists.scss",
+        "content/Content/bootstrap/mixins/_nav-divider.scss",
+        "content/Content/bootstrap/mixins/_pagination.scss",
+        "content/Content/bootstrap/mixins/_reset-text.scss",
+        "content/Content/bootstrap/mixins/_resize.scss",
+        "content/Content/bootstrap/mixins/_screen-reader.scss",
+        "content/Content/bootstrap/mixins/_size.scss",
+        "content/Content/bootstrap/mixins/_table-row.scss",
+        "content/Content/bootstrap/mixins/_text-emphasis.scss",
+        "content/Content/bootstrap/mixins/_text-hide.scss",
+        "content/Content/bootstrap/mixins/_text-truncate.scss",
+        "content/Content/bootstrap/mixins/_transition.scss",
+        "content/Content/bootstrap/mixins/_visibility.scss",
+        "content/Content/bootstrap/utilities/_align.scss",
+        "content/Content/bootstrap/utilities/_background.scss",
+        "content/Content/bootstrap/utilities/_borders.scss",
+        "content/Content/bootstrap/utilities/_clearfix.scss",
+        "content/Content/bootstrap/utilities/_display.scss",
+        "content/Content/bootstrap/utilities/_embed.scss",
+        "content/Content/bootstrap/utilities/_flex.scss",
+        "content/Content/bootstrap/utilities/_float.scss",
+        "content/Content/bootstrap/utilities/_position.scss",
+        "content/Content/bootstrap/utilities/_screenreaders.scss",
+        "content/Content/bootstrap/utilities/_shadows.scss",
+        "content/Content/bootstrap/utilities/_sizing.scss",
+        "content/Content/bootstrap/utilities/_spacing.scss",
+        "content/Content/bootstrap/utilities/_text.scss",
+        "content/Content/bootstrap/utilities/_visibility.scss",
+        "content/Scripts/bootstrap.bundle.js",
+        "content/Scripts/bootstrap.bundle.js.map",
+        "content/Scripts/bootstrap.bundle.min.js",
+        "content/Scripts/bootstrap.bundle.min.js.map",
+        "content/Scripts/bootstrap.js",
+        "content/Scripts/bootstrap.js.map",
+        "content/Scripts/bootstrap.min.js",
+        "content/Scripts/bootstrap.min.js.map"
+      ]
+    },
     "Bower/1.3.11": {
       "sha512": "JNo9rMr25g1ZA1hv8aTzkDTiglq3FGTPoNOqNTGrwckYqJ9/DulmlndUduhPZWJXnIlYxo0krbwgwBtrCZvNqQ==",
       "type": "package",
@@ -7003,6 +7152,26 @@
         "tools/bin_tools.ps1",
         "tools/install.ps1",
         "tools/uninstall.ps1"
+      ]
+    },
+    "jQuery/3.0.0": {
+      "sha512": "xFfntV19HzCtKdJWOp/XT9PUY3SslokTDDLFJZdBug36j1XVhw1+vPQ/n7Gd5y+jdpesn5B1m1yn1qIUq57jlA==",
+      "type": "package",
+      "path": "jquery/3.0.0",
+      "files": [
+        "Content/Scripts/jquery-3.0.0-vsdoc.js",
+        "Content/Scripts/jquery-3.0.0.js",
+        "Content/Scripts/jquery-3.0.0.min.js",
+        "Content/Scripts/jquery-3.0.0.min.map",
+        "Content/Scripts/jquery-3.0.0.slim.js",
+        "Content/Scripts/jquery-3.0.0.slim.min.js",
+        "Content/Scripts/jquery-3.0.0.slim.min.map",
+        "Tools/common.ps1",
+        "Tools/install.ps1",
+        "Tools/jquery-3.0.0.intellisense.js",
+        "Tools/uninstall.ps1",
+        "jquery.3.0.0.nupkg.sha512",
+        "jquery.nuspec"
       ]
     },
     "Libuv/1.10.0": {
@@ -10316,6 +10485,41 @@
         "lib/netstandard1.3/NuGet.Frameworks.xml",
         "nuget.frameworks.4.0.0.nupkg.sha512",
         "nuget.frameworks.nuspec"
+      ]
+    },
+    "popper.js/1.14.0": {
+      "sha512": "SPxZdXknelgQ015wey7GMZvsVdt/SyEmHYORhEp5k/uF9MUk9DPtkn+6dR98fud2hVWJjZm9KKr474+r7WQt+A==",
+      "type": "package",
+      "path": "popper.js/1.14.0",
+      "files": [
+        "content/Scripts/README.md",
+        "content/Scripts/esm/popper-utils.js",
+        "content/Scripts/esm/popper-utils.js.map",
+        "content/Scripts/esm/popper-utils.min.js",
+        "content/Scripts/esm/popper-utils.min.js.map",
+        "content/Scripts/esm/popper.js",
+        "content/Scripts/esm/popper.js.map",
+        "content/Scripts/esm/popper.min.js",
+        "content/Scripts/esm/popper.min.js.map",
+        "content/Scripts/index.d.ts",
+        "content/Scripts/popper-utils.js",
+        "content/Scripts/popper-utils.js.map",
+        "content/Scripts/popper-utils.min.js",
+        "content/Scripts/popper-utils.min.js.map",
+        "content/Scripts/popper.js",
+        "content/Scripts/popper.js.map",
+        "content/Scripts/popper.min.js",
+        "content/Scripts/popper.min.js.map",
+        "content/Scripts/umd/popper-utils.js",
+        "content/Scripts/umd/popper-utils.js.map",
+        "content/Scripts/umd/popper-utils.min.js",
+        "content/Scripts/umd/popper-utils.min.js.map",
+        "content/Scripts/umd/popper.js",
+        "content/Scripts/umd/popper.js.map",
+        "content/Scripts/umd/popper.min.js",
+        "content/Scripts/umd/popper.min.js.map",
+        "popper.js.1.14.0.nupkg.sha512",
+        "popper.js.nuspec"
       ]
     },
     "Remotion.Linq/2.1.1": {
@@ -15442,7 +15646,9 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.3",
       "Microsoft.NETCore.App >= 2.0.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.2"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.2",
+      "bootstrap >= 4.1.1",
+      "bootstrap.sass >= 4.1.1"
     ]
   },
   "packageFolders": {
@@ -15526,6 +15732,14 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[2.0.2, )"
+          },
+          "bootstrap": {
+            "target": "Package",
+            "version": "[4.1.1, )"
+          },
+          "bootstrap.sass": {
+            "target": "Package",
+            "version": "[4.1.1, )"
           }
         },
         "imports": [

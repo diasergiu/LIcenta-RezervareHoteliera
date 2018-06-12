@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Licenta.Entityes;
 using Licenta.ViewModel;
 using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Licenta.Controlers
 {
@@ -34,7 +35,7 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
-            HotelDescriptionPageViewModel _Hotel = new HotelDescriptionPageViewModel();
+
 
             var hotels = await _context.Hotels
                 .Include(h => h.IdLocationNavigation)
@@ -43,16 +44,27 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
-            _Hotel.IdHotel = hotels.IdHotel;
-            _Hotel.HotelName = hotels.HotelName;
-            _Hotel.DescriptionTable = hotels.DescriptionTable;
-            _Hotel.Stars = hotels.Stars;
-            _Hotel.IdLocationNavigation = hotels.IdLocationNavigation;
+            HotelDescriptionPageViewModel _Hotel = new HotelDescriptionPageViewModel()
+            {
+                IdHotel = hotels.IdHotel,
+                HotelName = hotels.HotelName,
+                DescriptionTable = hotels.DescriptionTable,
+                Stars = hotels.Stars,
+                IdLocationNavigation = hotels.IdLocationNavigation,
+
+                GaleryImages = _context.HotelImages.Where(x => x.IdHotel == hotels.IdHotel).ToList()
+            };
+
+
+          
+            
 
             _Hotel.Rooms = _context.Rooms.Where(x => x.IdHotel == id).ToList();
             var IdCustommer = HttpContext.Session.GetString("IdCustomer");
-            //ViewData["IdCustomer"] ;
+             
             _Hotel.IdUser = Convert.ToInt32(IdCustommer);
+          
+            
             return View(_Hotel);
         }
 
@@ -68,7 +80,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdHotel,DescriptionTable,HotelName,Stars,IdLocation")] Hotels hotels)
+        public async Task<IActionResult> Create([Bind("IdHotel,DescriptionTable,HotelName,Stars,IdLocation,ImageHotel")] Hotels hotels)
         {
             if (ModelState.IsValid)
             {
@@ -76,6 +88,7 @@ namespace Licenta.Controlers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            
             ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "IdLocation", hotels.IdLocation);
             return View(hotels);
         }
@@ -93,8 +106,16 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
+            HotelCreateViewModel HotelPass = new HotelCreateViewModel()
+            {
+                IdHotel = hotels.IdHotel,
+                HotelName = hotels.HotelName,
+                DescriptionTable = hotels.DescriptionTable,
+                Stars = hotels.Stars,
+                IdLocation = hotels.Stars
+            };
             ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "IdLocation", hotels.IdLocation);
-            return View(hotels);
+            return View(HotelPass);
         }
 
         // POST: Hotels/Edit/5
@@ -102,7 +123,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdHotel,DescriptionTable,HotelName,Stars,IdLocation")] Hotels hotels)
+        public async Task<IActionResult> Edit(int id, [Bind("IdHotel,DescriptionTable,HotelName,Stars,IdLocation")] Hotels hotels, [Bind("ImageHotel")] List<IFormFile> ImageHotel)
         {
             if (id != hotels.IdHotel)
             {
@@ -111,6 +132,25 @@ namespace Licenta.Controlers
 
             if (ModelState.IsValid)
             {
+                int _IdHotelImage = _context.HotelImages.Last().IdImageHotel;
+                //the save image part 
+                foreach (var image in ImageHotel)
+                {
+                    _IdHotelImage++;
+                    HotelImages Immage = new HotelImages()
+                    {
+                        IdHotel = hotels.IdHotel,
+                        IdImageHotel = _IdHotelImage
+                    };
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await image.CopyToAsync(memoryStream);
+                        Immage.ImageHotel = memoryStream.ToArray();
+                    }
+                    _context.HotelImages.Add(Immage);
+                }
+
+                // the edit hotel part 
                 try
                 {
                     _context.Update(hotels);
@@ -148,7 +188,7 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
-
+            
             return View(hotels);
         }
 
@@ -169,6 +209,6 @@ namespace Licenta.Controlers
         }
 
 
-       
+        
     }
 }

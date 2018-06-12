@@ -46,7 +46,7 @@ namespace Licenta
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<DBRezervareHotelieraContext>();
-                context.Database.Migrate();
+                //context.Database.Migrate();
             }
             app.UseSession();
             app.UseStaticFiles();

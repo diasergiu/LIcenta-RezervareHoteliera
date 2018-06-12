@@ -122,7 +122,8 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
-
+            
+  
             var facilities = await _context.Facilities
                 .SingleOrDefaultAsync(m => m.IdFacilities == id);
             if (facilities == null)
@@ -138,6 +139,11 @@ namespace Licenta.Controlers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var faciitie_FacilitiHotel = _context.FacilitiesHotel.Where(x => x.IdFacilities == id).ToList();
+            foreach(var item in faciitie_FacilitiHotel)
+            { 
+            _context.FacilitiesHotel.Remove(item);
+            }
             var facilities = await _context.Facilities.SingleOrDefaultAsync(m => m.IdFacilities == id);
             _context.Facilities.Remove(facilities);
             await _context.SaveChangesAsync();

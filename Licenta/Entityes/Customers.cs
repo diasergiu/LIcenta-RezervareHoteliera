@@ -18,6 +18,7 @@ namespace Licenta.Entityes
         public string Password { get; set; }
         public string Phone { get; set; }
         public string Username { get; set; }
+        public string TypeUser { get; set; }
 
         public ICollection<CreditCard> CreditCard { get; set; }
         public ICollection<Reservations> Reservations { get; set; }

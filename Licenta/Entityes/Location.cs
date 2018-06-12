@@ -16,8 +16,6 @@ namespace Licenta.Entityes
         public string RegionName { get; set; }
         public string Country { get; set; }
 
-   
-
         public ICollection<Hotels> Hotels { get; set; }
     }
 }

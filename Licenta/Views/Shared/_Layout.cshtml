@@ -23,12 +23,18 @@
       <a class="navbar-brand" href="/Home/index">HotelsHotels</a>
     </div>
 	<ul>
+	@if(Context.Session.GetString("TypeUser") == "Manager Site")	
+	{
 		<li><a href="/Hotels">Hotels Manager</a></li>
 		<li><a href="/Customers">Users Management</a></li>
 		<li><a href="/Locations"> Location Manager </a></li>
+	}
+	@if(Context.Session.GetString("TypeUser") == "Manager Hotel" || Context.Session.GetString("TypeUser") == "Manager Site")
+	{
 		<li><a href="/Reservations"> Reservations Manager </a></li>
 		<li><a href="/Rooms"> Rooms Manager </a></li>
 		<li><a href="/Employes"> Employes </a></li>
+	}
 	</ul>
     @if (Context.Session.GetString("IdCustomer") != null)
     {

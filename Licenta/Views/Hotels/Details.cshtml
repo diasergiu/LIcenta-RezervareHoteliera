@@ -35,10 +35,17 @@
         <dd>
             @Html.DisplayFor(model => model.IdLocationNavigation.RegionName)
         </dd>
+		@foreach(var item in Model.GaleryImages)
+		{
+			
+		}
     </dl>
 
 </div>
 <div>
+
+	
+
 <form  asp-controller="Reservations" asp-action="CreateReservation" method="post">
 	<table class="table table-striped">
 	

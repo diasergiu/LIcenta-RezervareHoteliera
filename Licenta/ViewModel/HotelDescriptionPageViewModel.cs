@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Licenta.ViewModel
 {
@@ -37,5 +37,7 @@ namespace Licenta.ViewModel
         public ICollection<HotelImages> HotelImages { get; set; }
         public ICollection<Rooms> Rooms { get; set; }
 
+        public List<HotelImages> GaleryImages { get; set; }
+     
     }
 }

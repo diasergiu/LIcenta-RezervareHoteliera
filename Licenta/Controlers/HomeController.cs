@@ -50,8 +50,10 @@ namespace Licenta.Controlers
                 List<int> SelectedFacilities = new List<int>();
                 for(int i = 0; i < listFacilities.Length; i++)
                 {
-                    if (listFacilities[i].IsChecked)
+                    if (listFacilities[i].IsChecked == true)
+                    {
                         SelectedFacilities.Add(listFacilities[i].IdFacilities);
+                    }
                 }
                 foreach(var item in SelectedFacilities)
                 {
