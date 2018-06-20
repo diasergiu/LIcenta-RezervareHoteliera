@@ -38,6 +38,8 @@ namespace Licenta.ViewModel
         public ICollection<Rooms> Rooms { get; set; }
 
         public List<HotelImages> GaleryImages { get; set; }
+
+        public List<string> imagesString { get; set; }
      
     }
 }

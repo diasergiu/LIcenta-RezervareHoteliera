@@ -52,12 +52,15 @@ namespace Licenta.Controlers
                 Stars = hotels.Stars,
                 IdLocationNavigation = hotels.IdLocationNavigation,
 
-                GaleryImages = _context.HotelImages.Where(x => x.IdHotel == hotels.IdHotel).ToList()
+                GaleryImages = _context.HotelImages.Where(x => x.IdHotel == hotels.IdHotel).ToList(),
+                 
             };
+            _Hotel.imagesString = new List<string>();
+            foreach (var item in _Hotel.GaleryImages)
+                _Hotel.imagesString.Add(Convert.ToBase64String(item.ImageHotel));
 
 
-          
-            
+
 
             _Hotel.Rooms = _context.Rooms.Where(x => x.IdHotel == id).ToList();
             var IdCustommer = HttpContext.Session.GetString("IdCustomer");

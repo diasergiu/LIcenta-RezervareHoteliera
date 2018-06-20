@@ -9,6 +9,7 @@ namespace Licenta
 {
     public class Startup
     {
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 
@@ -35,6 +36,7 @@ namespace Licenta
             services.AddSession();
             services.AddCors();
         }
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -45,8 +47,7 @@ namespace Licenta
             }
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<DBRezervareHotelieraContext>();
-                //context.Database.Migrate();
+                var context = serviceScope.ServiceProvider.GetRequiredService<DBRezervareHotelieraContext>();          
             }
             app.UseSession();
             app.UseStaticFiles();
