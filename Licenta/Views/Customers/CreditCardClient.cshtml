@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Licenta.Entityes.CreditCard>
+
+@{
+    ViewData["Title"] = "CreditCardClient";
+	Layout = "_Layout";
+}
+
+<h2>You'r credit cards</h2>
+<a asp-action="AddCreditCard" asp-route-id="@ViewBag.IdCustomer">Add credit card </a>
+
+<table class="table">
+	<thread>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.CardNumber)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.CardExpireDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Cvc)
+			</th>
+		</tr>
+		</thread>
+		<tbody>
+			@foreach (var item in Model) 
+			{
+			
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.CardNumber)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.CardExpireDate)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Cvc)
+					</td>
+					<td>
+						<a asp-action="EditCreditCard" asp-route-id="@item.IdCard" > Go to edit </a>
+					</td>
+					<td>
+						<form asp-action="DeletCreditCard" method="post">
+							<input type="hidden" asp-for="@item.IdCard" />
+							<input type="submit" value="Delete credit card" class="btn btn-default"/>
+						</form>
+					</td>
+				</tr>
+			
+			}
+		</tbody>
+</table>
+

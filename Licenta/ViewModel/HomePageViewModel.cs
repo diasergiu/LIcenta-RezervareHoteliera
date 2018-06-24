@@ -50,8 +50,9 @@ namespace Licenta.ViewModel
         [BindProperty]
         public List<Location> listLocations { get; set; }
 
-       
-
+        public DateTime CheckIn { get; set; }
+        public DateTime CheckOut { get; set; }
+    
         public int? IdLocation { get; set; }
 
         public int[] IdFacilities { get; set; }

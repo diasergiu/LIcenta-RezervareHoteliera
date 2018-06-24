@@ -36,9 +36,7 @@ namespace Licenta.Entityes
             {
                 entity.HasKey(e => e.IdCard);
 
-                entity.Property(e => e.IdCard)
-                    .HasColumnName("idCard")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.IdCard).HasColumnName("idCard");
 
                 entity.Property(e => e.CardExpireDate)
                     .HasColumnName("cardExpireDate")
@@ -276,6 +274,8 @@ namespace Licenta.Entityes
                 entity.Property(e => e.IdRoom).HasColumnName("idRoom");
 
                 entity.Property(e => e.IdHotel).HasColumnName("idHotel");
+
+                entity.Property(e => e.PriceRoom).HasColumnName("priceRoom");
 
                 entity.Property(e => e.RoomNumber).HasColumnName("roomNumber");
 

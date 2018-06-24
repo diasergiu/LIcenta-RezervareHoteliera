@@ -25,12 +25,19 @@
         <dd>
             @Html.DisplayFor(model => model.RoomNumber)
         </dd>
+		<dt>
+            @Html.DisplayNameFor(model => model.PriceRoom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PriceRoom)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.IdHotelNavigation)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.IdHotelNavigation.IdHotel)
         </dd>
+		
     </dl>
 
     <form asp-action="Delete">

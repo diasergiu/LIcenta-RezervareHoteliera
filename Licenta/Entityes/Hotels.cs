@@ -24,6 +24,5 @@ namespace Licenta.Entityes
         public ICollection<FacilitiesHotel> FacilitiesHotel { get; set; }
         public ICollection<HotelImages> HotelImages { get; set; }
         public ICollection<Rooms> Rooms { get; set; }
-
     }
 }

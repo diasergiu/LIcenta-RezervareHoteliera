@@ -14,6 +14,7 @@ namespace Licenta.Entityes
         public int? IdHotel { get; set; }
         public int? RoomNumber { get; set; }
         public int? Beds { get; set; }
+        public int? PriceRoom { get; set; }
 
         public Hotels IdHotelNavigation { get; set; }
         public ICollection<Reservations> Reservations { get; set; }

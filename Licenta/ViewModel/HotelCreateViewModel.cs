@@ -1,4 +1,5 @@
 ﻿using Licenta.Entityes;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,12 @@ namespace Licenta.ViewModel
         public ICollection<Rooms> Rooms { get; set; }
 
         public int IdImageHotel { get; set; }
-        public byte[] ImageHotel { get; set; }
+      //  public byte[] ImageHotel { get; set; }
 
         public List<Byte[]> ImagesHotel { get; set; }
         
+        public List<IFormFile> ImageHotel { get; set; }
+
+        public Facilities[] facilities { get; set; }
     }
 }

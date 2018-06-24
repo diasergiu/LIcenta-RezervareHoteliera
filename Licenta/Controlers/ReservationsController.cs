@@ -60,11 +60,38 @@ namespace Licenta.Controlers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdReservations,CheckIn,CheckOut,IdRoom,IdCustomer")] Reservations reservations)
         {
+
             if (ModelState.IsValid)
             {
-                _context.Add(reservations);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var rooms = _context.Rooms.Where(x => x.IdRoom == reservations.IdRoom).FirstOrDefault();
+
+                var reservationsList = _context.Reservations.Where(x => x.IdRoom == rooms.IdRoom)
+                    .OrderBy(x => x.CheckOut).ToList();
+                bool found = reservations.CheckIn < reservationsList[0].CheckIn
+                    || reservations.CheckOut > reservationsList[reservationsList.Count() - 1].CheckOut;
+
+                for (int i = 0; i < reservationsList.Count() - 2; ++i)
+                {
+
+                    if (reservationsList[i].CheckOut < reservations.CheckIn && reservationsList[i + 1].CheckIn > reservations.CheckOut)
+                    {
+                        found = true;                       
+                        break;
+                    }
+                    if (found)
+                    {
+                        _context.Add(reservations);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+
+                }
+
+                ViewData["IdCustomer"] = new SelectList(_context.Customers, "IdCustomer", "IdCustomer", reservations.IdCustomer);
+                ViewData["IdRoom"] = new SelectList(_context.Rooms, "IdRoom", "IdRoom", reservations.IdRoom);
+                return View(reservations);
+
+
             }
             ViewData["IdCustomer"] = new SelectList(_context.Customers, "IdCustomer", "IdCustomer", reservations.IdCustomer);
             ViewData["IdRoom"] = new SelectList(_context.Rooms, "IdRoom", "IdRoom", reservations.IdRoom);
@@ -162,10 +189,10 @@ namespace Licenta.Controlers
             return _context.Reservations.Any(e => e.IdReservations == id);
         }
 
-        public async Task<IActionResult> CreateReservation(DateTime CheckIn, DateTime CheckOut, int IdRoom,int IdUser)
+        public async Task<IActionResult> CreateReservation(DateTime CheckIn, DateTime CheckOut, int IdRoom, int IdUser)
         {
 
-        if(ModelState != null)
+            if (ModelState != null)
             {
                 Reservations newReservation = new Reservations();
                 newReservation.CheckIn = CheckIn;
@@ -177,8 +204,8 @@ namespace Licenta.Controlers
                 await _context.SaveChangesAsync();
 
             }
-        
-            return Redirect("/Hotels");
+
+            return Redirect("/Home");
         }
     }
 }

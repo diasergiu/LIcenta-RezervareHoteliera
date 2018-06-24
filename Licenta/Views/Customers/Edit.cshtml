@@ -47,7 +47,11 @@
             </div>
 			 <div class="form-group">
                 <label asp-for="TypeUser" class="control-label"></label>
-                <input asp-for="TypeUser" class="form-control" />
+                <select asp-for="TypeUser" class="form-control">
+					<option value="Normal User">Normal User</option>
+					<option value="Manager Hotel">Manager Hotel</option>
+					<option value="Manager Site">Manager Site</option>
+				</select>
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">

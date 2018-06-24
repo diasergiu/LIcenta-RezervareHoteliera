@@ -20,6 +20,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.RoomNumber)
             </th>
+			<th>
+				@Html.DisplayNameFor(model => model.PriceRoom)
             <th>
                 Hotel
                 @*@Html.DisplayNameFor(model => model.IdHotel)*@
@@ -37,6 +39,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.RoomNumber)
                 </td>
+				<td>
+					@Html.DisplayFor(modelItem => item.PriceRoom)
+				</td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IdHotelNavigation.HotelName)
                 </td>

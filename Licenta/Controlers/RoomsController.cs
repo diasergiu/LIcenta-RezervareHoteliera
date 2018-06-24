@@ -56,7 +56,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdRoom,Beds,Reserved,Bath,IdHotel,RoomNumber")] Rooms rooms)
+        public async Task<IActionResult> Create([Bind("IdRoom,Beds,Reserved,Bath,IdHotel,PriceRoom,RoomNumber")] Rooms rooms)
         {
             if (ModelState.IsValid)
             {
@@ -90,8 +90,9 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdRoom,Beds,Reserved,Bath,IdHotel,RoomNumber")] Rooms rooms)
+        public async Task<IActionResult> Edit(int id, [Bind("IdRoom,Beds,Reserved,Bath,IdHotel,PriceRoom,RoomNumber")] Rooms rooms)
         {
+
             if (id != rooms.IdRoom)
             {
                 return NotFound();
@@ -145,6 +146,12 @@ namespace Licenta.Controlers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var deletReservationsFromRoom = _context.Reservations.Where(x => x.IdRoom == id).ToList();
+
+            foreach (var item in deletReservationsFromRoom)
+            {
+                _context.Reservations.Remove(item);
+            }
             var rooms = await _context.Rooms.SingleOrDefaultAsync(m => m.IdRoom == id);
             _context.Rooms.Remove(rooms);
             await _context.SaveChangesAsync();

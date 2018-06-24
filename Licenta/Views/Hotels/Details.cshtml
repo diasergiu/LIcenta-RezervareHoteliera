@@ -55,15 +55,9 @@
 	
             <thead>
 				<tr>
-					<div class="form-group">
-						<input asp-for="CheckIn" class="form-control" Value="CheckDate" Style="padding-top:5px,padding-top:5px"/>					
-						<span asp-validation-for="CheckIn" class="text-danger"></span>
-					</div>
-					<div class="form-group">
-						<input asp-for="CheckOut" class="form-control" Value="OutDate" Style="padding-top:5px,padding-top:5px"/>
-						<span asp-validation-for="CheckOut" class="text-danger"></span>
-					</div>
+				
 					@Html.HiddenFor(modelItem => @Model.IdUser)
+				
 				</tr>
                 <tr>
                     <td>Room</td>
@@ -77,8 +71,10 @@
                     <tr>
                         <td> @Html.DisplayFor(modelIten => rooms.RoomNumber)</td>
                         <td> @Html.DisplayFor(modelIten => rooms.Beds)</td>
+						<td> @Html.DisplayFor(modelItem => rooms.PriceRoom)</td>
 						@Html.HiddenFor(modelItem => @Model.Rooms.Where(x => x.IdHotel == rooms.IdHotel).FirstOrDefault().IdRoom)
-						
+						@Html.HiddenFor(modelItem => @Model.CheckIn)
+						@Html.HiddenFor(modelItem => @Model.CheckOut)
 					
 						<td><input type="submit" value="Make Reservation" /></td>
                     </tr>

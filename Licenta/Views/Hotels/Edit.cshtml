@@ -38,6 +38,16 @@
 				<label asp-for="ImagesHotel" class="Conttrol-label"></label>
 				<input	type="file" asp-for="ImageHotel" class="form-control" multiple></input>    
 			</div>
+			@for(int i = 0; i < Model.facilities.Length; i++)    
+            {
+				<div class="form-group">
+					<input asp-for="@Model.facilities[i].IsChecked"  />				
+					<label asp-for="@Model.facilities[i].IsChecked">@Model.facilities[i].FacilitiesName</label>
+					@Html.HiddenFor( x=> @Model.facilities[i].IdFacilities)
+					@Html.HiddenFor( x=> @Model.facilities[i].FacilitiesName)
+				</div>
+				
+            } 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

@@ -35,6 +35,28 @@
 
     </div>
 	
- 
-	
+    <div class="col-sm-8">
+        <h4>Hotels</h4>
+        <hr />
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Hotel name</td>
+                    <td>Description table</td>
+                    <td>Stars</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Hotel in Model.listHotels)
+                {
+                    <tr>
+                        <td> @Html.DisplayFor(modelIten => Hotel.HotelName)</td>
+                        <td> @Html.DisplayFor(modelIten => Hotel.DescriptionTable)</td>
+                        <td> @Html.DisplayFor(modelIten => Hotel.Stars)</td>
+                        <td><a asp-controller="Hotels" asp-action="Details" asp-route-id=@Hotel.IdHotel asp-route-checkInDate=@Model.CheckIn asp-route-checkOutDate=@Model.CheckOut >Visit hotel</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

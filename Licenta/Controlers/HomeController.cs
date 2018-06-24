@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Licenta.Entityes;
 using Licenta.ViewModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -23,14 +24,15 @@ namespace Licenta.Controlers
         {
 
             HomePageViewModel homePageViewModel = new HomePageViewModel();
-            homePageViewModel.listHotels = _context.Hotels.ToList();
+            //homePageViewModel.listHotels = _context.Hotels.ToList();
+
             homePageViewModel.listFacilities = _context.Facilities.ToArray();
             homePageViewModel.listLocations = _context.Location.ToList();
             return View(homePageViewModel);
         }
 
-        [HttpPost]
-        public IActionResult index(Facilities[] listFacilities, int IdLocation)
+        [HttpGet]
+        public IActionResult HomePage(Facilities[] listFacilities, int IdLocation, DateTime CheckIn, DateTime CheckOut)
         {
             HomePageViewModel _homePageviewmode = new HomePageViewModel();
 
@@ -63,16 +65,21 @@ namespace Licenta.Controlers
                                           where item == FH.IdFacilities
                                           select H).ToList();
                 }
+                HttpContext.Session.SetInt32("Location", IdLocation);  
 
+                _homePageviewmode.CheckIn = CheckIn;
+                _homePageviewmode.CheckOut = CheckOut;
                 _homePageviewmode.listHotels = LocationHotelQuery;
                 _homePageviewmode.listFacilities = _context.Facilities.ToArray();
                 _homePageviewmode.listLocations = _context.Location.ToList();
                 return View(_homePageviewmode);
+                
             }        
             _homePageviewmode.listHotels = _context.Hotels.ToList();
             _homePageviewmode.listFacilities = _context.Facilities.ToArray();
             _homePageviewmode.listLocations = _context.Location.ToList();
             return View(_homePageviewmode);
+            //return RedirectToRoute("Home/HomePage", _homePageviewmode)
         }
     }
 }

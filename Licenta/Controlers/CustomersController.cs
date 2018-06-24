@@ -164,26 +164,27 @@ namespace Licenta.Controlers
             var LoginCustomer = _context.Customers
                 .Where(x => x.Username == customerLogin.Username && x.Password == customerLogin.Password)
                 .FirstOrDefault();
-            if(LoginCustomer != null)
+            if (LoginCustomer != null)
             {
-                HttpContext.Session.SetString("IdCustomer", LoginCustomer.IdCustomer.ToString());
+                HttpContext.Session.SetInt32("IdCustomer", LoginCustomer.IdCustomer);
                 HttpContext.Session.SetString("Username", LoginCustomer.Username);
                 HttpContext.Session.SetString("TypeUser", LoginCustomer.TypeUser);
                 return RedirectToAction("Welcome");
             }
             else
             {
-                ModelState.AddModelError("","username or password is wrong");
+                ModelState.AddModelError("", "username or password is wrong");
             }
-            return View();
+            return View(LoginCustomer);
         }
 
-        public ActionResult Welcome()
+        public ActionResult Welcome(Customers LoginCustomer)
         {
-            if(HttpContext.Session.GetString("Username") != null)
+            if (HttpContext.Session.GetString("Username") != null)
             {
                 ViewBag.Username = HttpContext.Session.GetString("Username");
-                return View();
+                ViewBag.IdCustomer = HttpContext.Session.GetInt32("IdCustomer");
+                return View(LoginCustomer);
             }
             else
             {
@@ -199,5 +200,92 @@ namespace Licenta.Controlers
         }
 
         #endregion
+
+        #region Credit card 
+
+        public async Task<IActionResult> CreditCardClient(int? idClient)
+        {
+            //var idClient = HttpContext.Session.GetInt32("IdCustomer");
+            return View(await _context.CreditCard.Where(x => x.IdCard == idClient).ToListAsync());
+        }
+        [HttpGet]
+        public IActionResult AddCreditCard(int id)
+        {
+            ViewBag.IdCustomer = HttpContext.Session.GetInt32("IdCustomer");
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCreditCard([Bind("CardNumber,CardExpireDate,Cvc,MoneyInTheCard")] CreditCard creditCard)
+        {
+            if (ModelState.IsValid)
+            {
+                creditCard.IdClient = HttpContext.Session.GetInt32("IdCustomer");
+                _context.CreditCard.Add(creditCard);
+                await _context.SaveChangesAsync();
+                int id = creditCard.IdClient.Value;
+                return RedirectToAction("CreditCardClient", new { id = creditCard.IdClient });
+            }
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> EditCreditCard(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var creditCard = await _context.CreditCard.SingleOrDefaultAsync(x => x.IdCard == id);
+            if (creditCard == null)
+            {
+                return NotFound();
+            }
+            return View(creditCard);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCreditCard([Bind("IdClient,CardNumber,CardExpireDate,Cvc,MoneyInTheCard")] CreditCard creditCard)
+        {        
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(creditCard);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CreditCardExists(creditCard.IdCard))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("CreditCardClient", new { id = creditCard.IdClient });
+            }
+            return View(creditCard);
+        }
+
+        private bool CreditCardExists(int idCard)
+        {
+            return _context.CreditCard.Any(e => e.IdCard == idCard);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeletCreditCard(int? IdCard)
+        {
+            var creditCard = await _context.CreditCard.SingleOrDefaultAsync(x => x.IdCard == IdCard);
+            _context.Remove(creditCard);
+            _context.SaveChanges();
+            return RedirectToAction("CreditCardClient", new { idClient = creditCard.IdClient });
+        }
+
+
+        #endregion
     }
+
+
 }

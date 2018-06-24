@@ -1,10 +1,12 @@
-﻿
+﻿@model Licenta.Entityes.Customers
 @{
     ViewData["Title"] = "Welcome";
 	Layout = "_Layout";
 }
 
-<h2>Welcome @ViewBag.Username</h2>
+<h2>Welcome @Model.Username</h2>
 
 <a href="index">go to home</a>
+</br>
+<a asp-action="CreditCardClient" asp-route-id="@ViewBag.IdCustomer">Method of paiment</a>
 
