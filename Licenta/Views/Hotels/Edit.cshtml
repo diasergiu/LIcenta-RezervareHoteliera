@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
-	Layout = "_Layout";
+	Layout = "Hotel_Layout";
 }
 
 <h2>Edit</h2>
@@ -51,11 +51,55 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
-        </form>
+        
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+ 	@for(int i = 0 ; i < Model.imagesString.Length ; i++)
+		{
+	<div class="column" style="width:20%">
+        <img src="data:image/png;base64,
+            @Html.DisplayFor(modelItem => Model.imagesString[i])
+			"style="width:100%; height:200px" class="hover-shadow cursor" onclick="openModal();currentSlide(@i+1)"/>	
+		</div>
+		
+		
+		}
+		<!-- Modal LightBox  -->	
+		<div id="myModal" class="modal">
+			<span class="close cursor" onclick="closeModal()">&times;</span>
+			<div class="modal-content">
+				@for(int i = 0 ; i < Model.imagesString.Length ; i++)
+				{
+					<div class="slider">
+					<img src="data:image/png;base64,@Html.DisplayFor(modelItem => Model.imagesString[i])" style="width:100%;height:500px"/>
+					<a asp-controller="HotelImages" asp-action="Delete" asp-route-id="@Model.GaleryImages[i].IdImageHotel" >Delete</a>
+					</div>
+
+
+					
+				}	
+
+					    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+						<a class="next" onclick="plusSlides(1)">&#10095;</a
+
+						<div class="caption-container">
+							<p id="caption"></p>
+						</div>
+						</br>
+						</br>
+					<div class="content">
+					@for(int i = 0 ; i < Model.imagesString.Length ; i++)
+					{
+						<div class="column" style="width:20%;height:125px;">
+							<img src="data:image/png;base64,@Html.DisplayFor(modelItem => Model.imagesString[i])"
+							style="width:100%;height:100%" class="demo cursor" style="width:100%" onclick="currentSlide(@i+1)"/>
+						</div>
+					}
+					</div>
+			</div>
+			
+		</div>
+		</form>
+
 

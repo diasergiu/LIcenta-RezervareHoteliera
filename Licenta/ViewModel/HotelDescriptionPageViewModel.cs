@@ -37,9 +37,9 @@ namespace Licenta.ViewModel
         public ICollection<HotelImages> HotelImages { get; set; }
         public ICollection<Rooms> Rooms { get; set; }
 
-        public List<HotelImages> GaleryImages { get; set; }
+        public HotelImages[] GaleryImages { get; set; }
 
-        public List<string> imagesString { get; set; }
+        public string[] imagesString { get; set; }
      
     }
 }

@@ -19,10 +19,11 @@ namespace Licenta.Controlers
         }
 
         // GET: Reservations
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var dBRezervareHotelieraContext = _context.Reservations.Include(r => r.IdCustomerNavigation).Include(r => r.IdRoomNavigation);
+            var dBRezervareHotelieraContext = _context.Reservations.Include(r => r.IdCustomerNavigation).Include(r => r.IdRoomNavigation).Include(x => x.IdRoomNavigation.IdHotelNavigation).Include(x => x.IdRoomNavigation.IdHotelNavigation.IdLocationNavigation).Where(x => x.IdCustomer == id);
             return View(await dBRezervareHotelieraContext.ToListAsync());
+
         }
 
         // GET: Reservations/Details/5
@@ -36,12 +37,13 @@ namespace Licenta.Controlers
             var reservations = await _context.Reservations
                 .Include(r => r.IdCustomerNavigation)
                 .Include(r => r.IdRoomNavigation)
+                .Include(x => x.IdRoomNavigation.IdHotelNavigation)
+                .Include(x => x.IdRoomNavigation.IdHotelNavigation.IdLocationNavigation)
                 .SingleOrDefaultAsync(m => m.IdReservations == id);
             if (reservations == null)
             {
                 return NotFound();
-            }
-
+            }            
             return View(reservations);
         }
 
@@ -194,15 +196,24 @@ namespace Licenta.Controlers
 
             if (ModelState != null)
             {
+                if(IdUser != 0)
+                { 
+                int roomPrice = (from r in _context.Rooms where r.IdRoom == IdRoom select r.PriceRoom).First().Value;
+                
                 Reservations newReservation = new Reservations();
                 newReservation.CheckIn = CheckIn;
                 newReservation.CheckOut = CheckOut;
                 newReservation.IdRoom = IdRoom;
                 newReservation.IdCustomer = IdUser;
+               
 
                 _context.Add(newReservation);
                 await _context.SaveChangesAsync();
-
+                }
+                else
+                {
+                    return RedirectToAction("LogIn", "Customers");
+                }
             }
 
             return Redirect("/Home");

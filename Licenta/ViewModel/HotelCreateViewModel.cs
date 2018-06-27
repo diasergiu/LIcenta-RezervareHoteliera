@@ -31,5 +31,9 @@ namespace Licenta.ViewModel
         public List<IFormFile> ImageHotel { get; set; }
 
         public Facilities[] facilities { get; set; }
+
+        public HotelImages[] GaleryImages { get; set; }
+
+        public string[] imagesString { get; set; }
     }
 }

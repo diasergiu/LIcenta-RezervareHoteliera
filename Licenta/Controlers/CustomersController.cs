@@ -154,7 +154,8 @@ namespace Licenta.Controlers
         #region login logout
 
         public ActionResult LogIn()
-        {
+        {          
+            //ViewBag["PreviousPageUrl"] = Request..ToString();
             return View();
         }
 
@@ -202,11 +203,12 @@ namespace Licenta.Controlers
         #endregion
 
         #region Credit card 
-
+        // the id dosant co for some reason
         public async Task<IActionResult> CreditCardClient(int? idClient)
         {
-            //var idClient = HttpContext.Session.GetInt32("IdCustomer");
-            return View(await _context.CreditCard.Where(x => x.IdCard == idClient).ToListAsync());
+            var _idClient = HttpContext.Session.GetInt32("IdCustomer");
+            var list = await _context.CreditCard.Where(x => x.IdClient == _idClient).ToListAsync();
+            return View(list);
         }
         [HttpGet]
         public IActionResult AddCreditCard(int id)
@@ -244,7 +246,7 @@ namespace Licenta.Controlers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditCreditCard([Bind("IdClient,CardNumber,CardExpireDate,Cvc,MoneyInTheCard")] CreditCard creditCard)
+        public async Task<IActionResult> EditCreditCard([Bind("IdCard,IdClient,CardNumber,CardExpireDate,Cvc,MoneyInTheCard")] CreditCard creditCard)
         {        
             if (ModelState.IsValid)
             {
@@ -275,9 +277,14 @@ namespace Licenta.Controlers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeletCreditCard(int? IdCard)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletCreditCard(int? id)
         {
-            var creditCard = await _context.CreditCard.SingleOrDefaultAsync(x => x.IdCard == IdCard);
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var creditCard = await _context.CreditCard.SingleOrDefaultAsync(x => x.IdCard == id);
             _context.Remove(creditCard);
             _context.SaveChanges();
             return RedirectToAction("CreditCardClient", new { idClient = creditCard.IdClient });

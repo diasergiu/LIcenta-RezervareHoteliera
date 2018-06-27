@@ -6,10 +6,10 @@
 	Layout = "_Layout";
 }
 
-<h2>Index</h2>
+<h2>You'r Reservations</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+
 </p>
 <table class="table">
     <thead>
@@ -21,11 +21,16 @@
                 @Html.DisplayNameFor(model => model.CheckOut)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdCustomerNavigation)
+				Hotel
+                <!--@Html.DisplayNameFor(model => model.IdRoomNavigation.IdHotelNavigation)-->
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdRoomNavigation)
+				RoomNumber
+                <!--@Html.DisplayNameFor(model => model.IdRoomNavigation)-->
             </th>
+			<th>
+				region
+			</th>
             <th></th>
         </tr>
     </thead>
@@ -40,13 +45,16 @@
                     @Html.DisplayFor(modelItem => item.CheckOut)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IdCustomerNavigation.IdCustomer)
+                    @Html.DisplayFor(modelItem => item.IdRoomNavigation.IdHotelNavigation.HotelName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IdRoomNavigation.IdRoom)
+                    @Html.DisplayFor(modelItem => item.IdRoomNavigation.RoomNumber)
                 </td>
+				<td>
+					@Html.DisplayFor(modelItem => item.IdRoomNavigation.IdHotelNavigation.IdLocationNavigation.RegionName)
+				</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdReservations">Edit</a> |
+                    <!--<a asp-action="Edit" asp-route-id="@item.IdReservations">Edit</a> -->
                     <a asp-action="Details" asp-route-id="@item.IdReservations">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.IdReservations">Delete</a>
                 </td>

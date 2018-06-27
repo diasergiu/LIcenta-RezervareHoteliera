@@ -145,15 +145,16 @@ namespace Licenta.Controlers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var hotelImages = await _context.HotelImages.SingleOrDefaultAsync(m => m.IdImageHotel == id);
+            var hotelImages = await _context.HotelImages.Include(x => x.IdHotelNavigation).SingleOrDefaultAsync(m => m.IdImageHotel == id);
             _context.HotelImages.Remove(hotelImages);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Edit","Hotels",new { id = hotelImages.IdHotelNavigation.IdHotel });
         }
 
         private bool HotelImagesExists(int id)
         {
             return _context.HotelImages.Any(e => e.IdImageHotel == id);
         }
+
     }
 }

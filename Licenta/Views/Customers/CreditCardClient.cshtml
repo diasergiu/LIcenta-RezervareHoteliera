@@ -23,9 +23,7 @@
 		</tr>
 		</thread>
 		<tbody>
-			@foreach (var item in Model) 
-			{
-			
+			@foreach (var item in Model)			{			
 				<tr>
 					<td>
 						@Html.DisplayFor(modelItem => item.CardNumber)
@@ -40,7 +38,8 @@
 						<a asp-action="EditCreditCard" asp-route-id="@item.IdCard" > Go to edit </a>
 					</td>
 					<td>
-						<form asp-action="DeletCreditCard" method="post">
+					<!-- this shoud have not worked --> 
+						<form asp-action="DeletCreditCard/@item.IdCard" method="post">
 							<input type="hidden" asp-for="@item.IdCard" />
 							<input type="submit" value="Delete credit card" class="btn btn-default"/>
 						</form>

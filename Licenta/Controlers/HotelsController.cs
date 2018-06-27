@@ -53,15 +53,20 @@ namespace Licenta.Controlers
                 Stars = hotels.Stars,
                 IdLocationNavigation = hotels.IdLocationNavigation,
 
-                GaleryImages = _context.HotelImages.Where(x => x.IdHotel == hotels.IdHotel).ToList(),
+                GaleryImages = _context.HotelImages.Where(x => x.IdHotel == hotels.IdHotel).ToArray(),
 
             };
-            _Hotel.imagesString = new List<string>();
+            _Hotel.imagesString = new string[_Hotel.GaleryImages.Length];
+            //new List<string>();
+            int imageNumber = 0;
             foreach (var item in _Hotel.GaleryImages)
-                _Hotel.imagesString.Add(Convert.ToBase64String(item.ImageHotel));
-
-
-
+            {
+                _Hotel.imagesString[imageNumber] = (Convert.ToBase64String(item.ImageHotel));
+                imageNumber++;
+            }
+            for (int i = 1; i < _Hotel.GaleryImages.Length; i++)
+                for (int y = 0; y < _Hotel.GaleryImages[i].ImageHotel.Length; y++)
+                    _Hotel.GaleryImages[i].ImageHotel.ToString();
 
             //_Hotel.Rooms =
             var rooms = _context.Rooms.Where(x => x.IdHotel == id).ToList();
@@ -147,9 +152,18 @@ namespace Licenta.Controlers
                 HotelName = hotels.HotelName,
                 DescriptionTable = hotels.DescriptionTable,
                 Stars = hotels.Stars,
-                IdLocation = hotels.Stars
+                IdLocation = hotels.Stars,
+                GaleryImages = _context.HotelImages.Where(x => x.IdHotel == hotels.IdHotel).ToArray()
 
             };
+            HotelPass.imagesString = new string[HotelPass.GaleryImages.Length];
+            //new List<string>();
+            int imageNumber = 0;
+            foreach (var item in HotelPass.GaleryImages)
+            {
+                HotelPass.imagesString[imageNumber] = (Convert.ToBase64String(item.ImageHotel));
+                imageNumber++;
+            }
             var facilities = _context.Facilities.ToArray();
             //change facilities if they ar pozitive or not 
             var facilitiesHotel = _context.FacilitiesHotel.Where(x => x.IdHotel == hotels.IdHotel).ToList();
@@ -188,7 +202,7 @@ namespace Licenta.Controlers
                 int _IdHotelImage = _context.HotelImages.Last().IdImageHotel;
                 //the save image part 
                 if (!(hotels.ImageHotel == null))
-                    {
+                {
 
 
                     foreach (var image in hotels.ImageHotel)
@@ -213,7 +227,7 @@ namespace Licenta.Controlers
                 {
                     //if check treat the exercite
                     if (hotels.facilities[i].IsChecked)
-                    {                      
+                    {
                         if (_context.FacilitiesHotel.Where(x => x.IdHotel == hotels.IdHotel &&
                         x.IdFacilities == hotels.facilities[i].IdFacilities).FirstOrDefault() == null)
                         {
@@ -229,7 +243,7 @@ namespace Licenta.Controlers
                     else
                     {
                         var uncheckedBox = _context.FacilitiesHotel.Where(x => x.IdHotel == hotels.IdHotel && x.IdFacilities == hotels.facilities[i].IdFacilities).FirstOrDefault();
-                        if(uncheckedBox == null)
+                        if (uncheckedBox == null)
                         {
 
                         }
@@ -266,7 +280,7 @@ namespace Licenta.Controlers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return View(hotels);
             }
             ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "IdLocation", hotels.IdLocation);
             return View(hotels);

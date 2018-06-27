@@ -12,7 +12,7 @@
 <div>
     <h4>Reservations</h4>
     <hr />
-    <dl class="dl-horizontal">
+        <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.CheckIn)
         </dt>
@@ -26,18 +26,43 @@
             @Html.DisplayFor(model => model.CheckOut)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.IdCustomerNavigation)
+            @Html.DisplayNameFor(model => model.IdRoomNavigation.IdHotelNavigation.HotelName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.IdCustomerNavigation.IdCustomer)
+            @Html.DisplayFor(model => model.IdRoomNavigation.IdHotelNavigation.HotelName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.IdRoomNavigation)
+            @Html.DisplayNameFor(model => model.IdRoomNavigation.RoomNumber)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.IdRoomNavigation.IdRoom)
+            @Html.DisplayFor(model => model.IdRoomNavigation.RoomNumber)
         </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.IdRoomNavigation.IdHotelNavigation.IdLocationNavigation.RegionName)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.IdRoomNavigation.IdHotelNavigation.IdLocationNavigation.RegionName)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.IdRoomNavigation.IdHotelNavigation.IdLocationNavigation.Country)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.IdRoomNavigation.IdHotelNavigation.IdLocationNavigation.Country)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.IdRoomNavigation.IdHotelNavigation.IdLocationNavigation.StreatName)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.IdRoomNavigation.IdHotelNavigation.IdLocationNavigation.StreatName)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.IdRoomNavigation.IdHotelNavigation.IdLocationNavigation.NrStreat)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.IdRoomNavigation.IdHotelNavigation.IdLocationNavigation.NrStreat)
+		</dd>
     </dl>
+
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdReservations" />
