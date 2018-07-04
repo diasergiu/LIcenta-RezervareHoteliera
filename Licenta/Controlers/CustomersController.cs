@@ -140,6 +140,16 @@ namespace Licenta.Controlers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var reservationsClient = _context.Reservations.Where(x => x.IdCustomer == id).ToList();
+            foreach(var item in reservationsClient)
+            {
+                _context.Reservations.Remove(item);
+            }
+            var CreditCardClient = _context.CreditCard.Where(x => x.IdClient == id).ToList();
+            foreach (var item in CreditCardClient)
+            {
+                _context.CreditCard.Remove(item);
+            }
             var customers = await _context.Customers.SingleOrDefaultAsync(m => m.IdCustomer == id);
             _context.Customers.Remove(customers);
             await _context.SaveChangesAsync();
@@ -170,7 +180,7 @@ namespace Licenta.Controlers
                 HttpContext.Session.SetInt32("IdCustomer", LoginCustomer.IdCustomer);
                 HttpContext.Session.SetString("Username", LoginCustomer.Username);
                 HttpContext.Session.SetString("TypeUser", LoginCustomer.TypeUser);
-                return RedirectToAction("Welcome");
+                return RedirectToAction("Welcome", LoginCustomer);
             }
             else
             {
@@ -181,6 +191,10 @@ namespace Licenta.Controlers
 
         public ActionResult Welcome(Customers LoginCustomer)
         {
+            if(LoginCustomer.IdCustomer == 0)
+            {
+                LoginCustomer = _context.Customers.Where(x => x.IdCustomer == HttpContext.Session.GetInt32("IdCustomer")).SingleOrDefault();
+            }
             if (HttpContext.Session.GetString("Username") != null)
             {
                 ViewBag.Username = HttpContext.Session.GetString("Username");

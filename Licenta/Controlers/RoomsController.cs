@@ -47,7 +47,7 @@ namespace Licenta.Controlers
         // GET: Rooms/Create
         public IActionResult Create()
         {
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel");
+            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "HotelName");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace Licenta.Controlers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", rooms.IdHotel);
+            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "HotelName", rooms.IdHotel);
             return View(rooms);
         }
 
@@ -81,7 +81,7 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", rooms.IdHotel);
+            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "HotelName", rooms.IdHotel);
             return View(rooms);
         }
 
@@ -118,7 +118,7 @@ namespace Licenta.Controlers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", rooms.IdHotel);
+            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "HotelName", rooms.IdHotel);
             return View(rooms);
         }
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -50,7 +51,11 @@ namespace Licenta.ViewModel
         [BindProperty]
         public List<Location> listLocations { get; set; }
 
+        [Required]
+        //[In("")]
         public DateTime CheckIn { get; set; }
+
+        [Required]
         public DateTime CheckOut { get; set; }
     
         public int? IdLocation { get; set; }

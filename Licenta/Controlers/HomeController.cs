@@ -25,7 +25,9 @@ namespace Licenta.Controlers
 
             HomePageViewModel homePageViewModel = new HomePageViewModel();
             //homePageViewModel.listHotels = _context.Hotels.ToList();
-
+            homePageViewModel.CheckIn = DateTime.Now;
+            
+            homePageViewModel.CheckOut = homePageViewModel.CheckIn.AddDays(2); 
             homePageViewModel.listFacilities = _context.Facilities.ToArray();
             homePageViewModel.listLocations = _context.Location.ToList();
             return View(homePageViewModel);

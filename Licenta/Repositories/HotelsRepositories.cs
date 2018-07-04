@@ -32,7 +32,43 @@ namespace Licenta.Repositories
                 .Where(m => m.IdHotel == id).FirstOrDefault();
         }
 
+        public async void deleteHotel(int id)
+        {
+            var facilitiesHotel = context.FacilitiesHotel.Where(x => x.IdHotel == id).ToList();
+            foreach (var item in facilitiesHotel)
+            {
+                context.FacilitiesHotel.Remove(item);
+            }
 
+            var employesHotel = context.Employes.Where(x => x.IdHotel == id).ToList();
+            foreach (var item in employesHotel)
+            {
+                context.Employes.Remove(item);
+            }
+            var roomsHotel = context.Rooms.Where(x => x.IdHotel == id).ToList();
+            foreach (var item in roomsHotel)
+            {
+                DeleteReservations(item.IdRoom);
+                context.Rooms.Remove(item);
+            }
+            var imagesHotel = context.HotelImages.Where(x => x.IdHotel == id).ToList();
+            foreach (var item in imagesHotel)
+            {
+                context.HotelImages.Remove(item);
+            }
+            var hotels =  context.Hotels.Where(m => m.IdHotel == id).SingleOrDefault();
+            context.Hotels.Remove(hotels);
+            await context.SaveChangesAsync();
+        }
+
+        public void DeleteReservations(int id)
+        {
+            var reservationsRoom = context.Reservations.Where(x => x.IdRoom == id).ToList();
+            foreach(var item in reservationsRoom)
+            {
+                context.Reservations.Remove(item);
+            }
+        }
 
     }
 }

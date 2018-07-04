@@ -2,13 +2,21 @@
 @{
     ViewData["Title"] = "Welcome";
 	Layout = "_Layout";
+	<link rel="stylesheet" type="text/css" href="@Url.Content("~/CSS/CSS.css")" />
 }
+<div class="ProfileLink">
+<h2 >Welcome @Model.Username</h2>
 
-<h2>Welcome @Model.Username</h2>
+<a class="ProfileLink" asp-controller="Home" asp-action="index" >go to home</a>
 
-<a href="index">go to home</a>
-</br>
-<a asp-action="CreditCardClient" asp-route-id="@ViewBag.IdCustomer">Method of paiment</a>
-</br>
-<a asp-controller="Reservations" asp-action="Index" asp-route-id="@ViewBag.IdCustomer" >My reservations</a>
 
+
+<a class="ProfileLink" asp-action="CreditCardClient" asp-route-id="@Model.IdCustomer">Method of paiment</a>
+
+
+<a class="ProfileLink" asp-controller="Reservations" asp-action="Index" asp-route-id="@Model.IdCustomer" >My reservations</a>
+	
+
+
+<a class="ProfileLink" asp-controller="Customers" asp-action="Edit" asp-route-id="@Model.IdCustomer">Edit information</a>
+</div>

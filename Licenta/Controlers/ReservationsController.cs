@@ -191,7 +191,7 @@ namespace Licenta.Controlers
             return _context.Reservations.Any(e => e.IdReservations == id);
         }
 
-        public async Task<IActionResult> CreateReservation(DateTime CheckIn, DateTime CheckOut, int IdRoom, int IdUser)
+        public async Task<IActionResult> CreateReservation(DateTime CheckIn, DateTime CheckOut, int IdRoom, int IdUser,int IdCard)
         {
 
             if (ModelState != null)
@@ -199,14 +199,24 @@ namespace Licenta.Controlers
                 if(IdUser != 0)
                 { 
                 int roomPrice = (from r in _context.Rooms where r.IdRoom == IdRoom select r.PriceRoom).First().Value;
-                
+                    //var creditCard = _context.CreditCard.Where(x => x.IdCard == IdCard).SingleOrDefault();
+                    //if(creditCard.MoneyInTheCard < roomPrice)
+                    //{
+                    //    return NotFound();
+                    //}
+                    //else
+                    //{
+                    //    creditCard.MoneyInTheCard -= roomPrice;
+                    //    _context.CreditCard.Update(creditCard);
+                    //    _context.SaveChanges();
+                    //}
                 Reservations newReservation = new Reservations();
                 newReservation.CheckIn = CheckIn;
                 newReservation.CheckOut = CheckOut;
                 newReservation.IdRoom = IdRoom;
                 newReservation.IdCustomer = IdUser;
                
-
+                        
                 _context.Add(newReservation);
                 await _context.SaveChangesAsync();
                 }

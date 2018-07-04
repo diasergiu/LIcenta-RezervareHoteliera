@@ -46,7 +46,7 @@ namespace Licenta.Entityes
         // GET: Employes/Create
         public IActionResult Create()
         {
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel");
+            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "HotelName");
             return View();
         }
 
@@ -63,7 +63,7 @@ namespace Licenta.Entityes
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", employes.IdHotel);
+            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "HotelName", employes.IdHotel);
             return View(employes);
         }
 
@@ -80,7 +80,7 @@ namespace Licenta.Entityes
             {
                 return NotFound();
             }
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", employes.IdHotel);
+            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "HotelName", employes.IdHotel);
             return View(employes);
         }
 
@@ -116,7 +116,7 @@ namespace Licenta.Entityes
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel", employes.IdHotel);
+            ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "HotelName", employes.IdHotel);
             return View(employes);
         }
 

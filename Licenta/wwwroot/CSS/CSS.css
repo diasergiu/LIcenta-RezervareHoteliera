@@ -17,3 +17,21 @@ li {
             /*color: white;*/
             text-decoration: none;
         }
+
+.ProfileLink {
+    border-color: antiquewhite;
+    border-width: 5px;
+    background-color: #20B2AA;
+    border: none;
+    color: white;
+    /*padding: 15px 32px;
+    text-align: center;*/
+    /*text-decoration: none;*/
+    display: block;
+    font-size: 16px;
+    /*margin: 4px 2px;*/
+    cursor: pointer;
+    width: 225px;
+    font-size: 25px;
+}
+

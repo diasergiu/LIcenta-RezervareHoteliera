@@ -41,5 +41,8 @@ namespace Licenta.ViewModel
 
         public string[] imagesString { get; set; }
      
+        public List<CreditCard> CreditCardsClient { get; set; }
+
+        public int IdCard { get; set; }
     }
 }

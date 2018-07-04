@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Licenta.Entityes;
+using Licenta.Repositories;
 
 namespace Licenta.Controlers
 {
@@ -138,6 +139,12 @@ namespace Licenta.Controlers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            HotelsRepositories reopsitorydeletHotels = new HotelsRepositories(_context);
+            var hotelsLocation = _context.Hotels.Where(x => x.IdHotel == id).ToList();
+            foreach (var item in hotelsLocation)
+            {
+                reopsitorydeletHotels.deleteHotel(item.IdHotel);
+            }
             var location = await _context.Location.SingleOrDefaultAsync(m => m.IdLocation == id);
             _context.Location.Remove(location);
             await _context.SaveChangesAsync();

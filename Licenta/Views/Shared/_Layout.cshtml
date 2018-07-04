@@ -27,6 +27,10 @@
       <a class="navbar-brand" href="/Home/index">HotelsHotels</a>
     </div>
 	<ul>
+	@if(Context.Session.GetString("TypeUser") != null)
+	{
+		<li><a asp-controller="Customers" asp-action="Welcome"  >Profile</a></li>
+	}
 	@if(Context.Session.GetString("TypeUser") == "Manager Site")	
 	{
 		<li><a href="/Hotels">Hotels Manager</a></li>

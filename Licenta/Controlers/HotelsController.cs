@@ -9,6 +9,7 @@ using Licenta.Entityes;
 using Licenta.ViewModel;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Licenta.Repositories;
 
 namespace Licenta.Controlers
 {
@@ -56,6 +57,10 @@ namespace Licenta.Controlers
                 GaleryImages = _context.HotelImages.Where(x => x.IdHotel == hotels.IdHotel).ToArray(),
 
             };
+            //if(HttpContext.Session.GetInt32("IdCustomer") != null)
+            //{
+            //    _Hotel.CreditCardsClient = _context.CreditCard.Where(x => x.IdClient == HttpContext.Session.GetInt32("IdCustomer")).ToList();
+            //}
             _Hotel.imagesString = new string[_Hotel.GaleryImages.Length];
             //new List<string>();
             int imageNumber = 0;
@@ -95,7 +100,7 @@ namespace Licenta.Controlers
                 if (found) _Hotel.Rooms.Add(room);
 
             }
-            var IdCustommer = HttpContext.Session.GetString("IdCustomer");
+            var IdCustommer = HttpContext.Session.GetInt32("IdCustomer");
 
             _Hotel.IdUser = Convert.ToInt32(IdCustommer);
 
@@ -129,7 +134,7 @@ namespace Licenta.Controlers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "IdLocation", hotels.IdLocation);
+            ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "RegionName", hotels.IdLocation);
             return View(hotels);
         }
 
@@ -181,7 +186,7 @@ namespace Licenta.Controlers
             HotelPass.facilities = facilities;
 
 
-            ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "IdLocation", hotels.IdLocation);
+            ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "RegionName", hotels.IdLocation);
             return View(HotelPass);
         }
 
@@ -280,9 +285,19 @@ namespace Licenta.Controlers
                         throw;
                     }
                 }
-                return View(hotels);
+
+
+                hotels.GaleryImages = _context.HotelImages.Where(x => x.IdHotel == hotels.IdHotel).ToArray();
+                hotels.imagesString = new string[hotels.GaleryImages.Length];
+                //new List<string>();
+                int imageNumber = 0;
+                foreach (var item in hotels.GaleryImages)
+                {
+                    hotels.imagesString[imageNumber] = (Convert.ToBase64String(item.ImageHotel));
+                    imageNumber++;
+                }
             }
-            ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "IdLocation", hotels.IdLocation);
+            ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "RegionName", hotels.IdLocation);
             return View(hotels);
         }
 
@@ -300,7 +315,7 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
-
+            
             return View(hotels);
         }
 
@@ -309,12 +324,12 @@ namespace Licenta.Controlers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            HotelsRepositories hr = new HotelsRepositories(_context);
+            hr.deleteHotel(id);
+
+            
 
 
-
-            var hotels = await _context.Hotels.SingleOrDefaultAsync(m => m.IdHotel == id);
-            _context.Hotels.Remove(hotels);
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
