@@ -16,10 +16,12 @@ namespace Licenta.Controlers
     public class HotelsController : Controller
     {
         private readonly DBRezervareHotelieraContext _context;
+        private HotelsRepositories hotelRepositories;
 
         public HotelsController(DBRezervareHotelieraContext context)
         {
             _context = context;
+            hotelRepositories = new HotelsRepositories(context);
         }
 
         // GET: Hotels
@@ -31,7 +33,7 @@ namespace Licenta.Controlers
 
 
         // GET: Hotels/Details/5
-        public async Task<IActionResult> Details(int? id, DateTime checkInDate, DateTime checkOutDate)
+        public async Task<IActionResult> DetailsHotel(int? id, DateTime checkInDate, DateTime checkOutDate)
         {
             if (id == null)
             {
@@ -46,29 +48,9 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
-            HotelDescriptionPageViewModel _Hotel = new HotelDescriptionPageViewModel()
-            {
-                IdHotel = hotels.IdHotel,
-                HotelName = hotels.HotelName,
-                DescriptionTable = hotels.DescriptionTable,
-                Stars = hotels.Stars,
-                IdLocationNavigation = hotels.IdLocationNavigation,
-
-                GaleryImages = _context.HotelImages.Where(x => x.IdHotel == hotels.IdHotel).ToArray(),
-
-            };
-            //if(HttpContext.Session.GetInt32("IdCustomer") != null)
-            //{
-            //    _Hotel.CreditCardsClient = _context.CreditCard.Where(x => x.IdClient == HttpContext.Session.GetInt32("IdCustomer")).ToList();
-            //}
-            _Hotel.imagesString = new string[_Hotel.GaleryImages.Length];
-            //new List<string>();
-            int imageNumber = 0;
-            foreach (var item in _Hotel.GaleryImages)
-            {
-                _Hotel.imagesString[imageNumber] = (Convert.ToBase64String(item.ImageHotel));
-                imageNumber++;
-            }
+            HotelDescriptionPageViewModel _Hotel = hotelRepositories.GetHotelDescriptionViewModel(hotels);
+                        
+            
             for (int i = 1; i < _Hotel.GaleryImages.Length; i++)
                 for (int y = 0; y < _Hotel.GaleryImages[i].ImageHotel.Length; y++)
                     _Hotel.GaleryImages[i].ImageHotel.ToString();
@@ -114,7 +96,7 @@ namespace Licenta.Controlers
 
 
         // GET: Hotels/Create
-        public IActionResult Create()
+        public IActionResult CreateHotel()
         {
             ViewData["IdLocation"] = new SelectList(_context.Location, "IdLocation", "RegionName");
             return View();
@@ -125,7 +107,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdHotel,DescriptionTable,HotelName,Stars,IdLocation,ImageHotel")] Hotels hotels)
+        public async Task<IActionResult> CreateHotel([Bind("IdHotel,DescriptionTable,HotelName,Stars,IdLocation,ImageHotel")] Hotels hotels)
         {
             if (ModelState.IsValid)
             {
@@ -139,7 +121,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Hotels/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> EditHotel(int? id)
         {
             if (id == null)
             {
@@ -151,24 +133,8 @@ namespace Licenta.Controlers
             {
                 return NotFound();
             }
-            HotelCreateViewModel HotelPass = new HotelCreateViewModel()
-            {
-                IdHotel = hotels.IdHotel,
-                HotelName = hotels.HotelName,
-                DescriptionTable = hotels.DescriptionTable,
-                Stars = hotels.Stars,
-                IdLocation = hotels.Stars,
-                GaleryImages = _context.HotelImages.Where(x => x.IdHotel == hotels.IdHotel).ToArray()
-
-            };
-            HotelPass.imagesString = new string[HotelPass.GaleryImages.Length];
-            //new List<string>();
-            int imageNumber = 0;
-            foreach (var item in HotelPass.GaleryImages)
-            {
-                HotelPass.imagesString[imageNumber] = (Convert.ToBase64String(item.ImageHotel));
-                imageNumber++;
-            }
+            HotelCreateViewModel HotelPass = hotelRepositories.GetHotelCreateViewModel(hotels);
+            
             var facilities = _context.Facilities.ToArray();
             //change facilities if they ar pozitive or not 
             var facilitiesHotel = _context.FacilitiesHotel.Where(x => x.IdHotel == hotels.IdHotel).ToList();
@@ -195,7 +161,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdHotel,DescriptionTable,HotelName,Stars,IdLocation,ImageHotel,facilities")] HotelCreateViewModel hotels/*, [Bind("ImageHotel")] List<IFormFile> ImageHotel,[Bind("facilities")] Facilities[] facilitiesSelectedForHotel*/)
+        public async Task<IActionResult> EditHotel(int id, [Bind("IdHotel,DescriptionTable,HotelName,Stars,IdLocation,ImageHotel,facilities")] HotelCreateViewModel hotels/*, [Bind("ImageHotel")] List<IFormFile> ImageHotel,[Bind("facilities")] Facilities[] facilitiesSelectedForHotel*/)
         {
             if (id != hotels.IdHotel)
             {
@@ -205,61 +171,14 @@ namespace Licenta.Controlers
             if (ModelState.IsValid)
             {
                 int _IdHotelImage = _context.HotelImages.Last().IdImageHotel;
-                //the save image part 
+                 
                 if (!(hotels.ImageHotel == null))
                 {
-
-
-                    foreach (var image in hotels.ImageHotel)
-                    {
-                        _IdHotelImage++;
-                        HotelImages Immage = new HotelImages()
-                        {
-                            IdHotel = hotels.IdHotel,
-                            IdImageHotel = _IdHotelImage
-                        };
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            await image.CopyToAsync(memoryStream);
-                            Immage.ImageHotel = memoryStream.ToArray();
-                        }
-                        _context.HotelImages.Add(Immage);
-
-                    }
-                }
-                // facilities part of the code
-                for (int i = 0; i < hotels.facilities.Length; i++)
-                {
-                    //if check treat the exercite
-                    if (hotels.facilities[i].IsChecked)
-                    {
-                        if (_context.FacilitiesHotel.Where(x => x.IdHotel == hotels.IdHotel &&
-                        x.IdFacilities == hotels.facilities[i].IdFacilities).FirstOrDefault() == null)
-                        {
-                            FacilitiesHotel facilities = new FacilitiesHotel()
-                            {
-                                IdFacilities = hotels.facilities[i].IdFacilities,
-                                IdHotel = hotels.IdHotel
-                            };
-                            _context.FacilitiesHotel.Add(facilities);
-                        }
-                    }
-                    //if the checkbox is not checked
-                    else
-                    {
-                        var uncheckedBox = _context.FacilitiesHotel.Where(x => x.IdHotel == hotels.IdHotel && x.IdFacilities == hotels.facilities[i].IdFacilities).FirstOrDefault();
-                        if (uncheckedBox == null)
-                        {
-
-                        }
-                        else
-                        {
-                            _context.FacilitiesHotel.Remove(uncheckedBox);
-                        }
-                    }
+                    hotelRepositories.SaveImages(hotels.ImageHotel, hotels.IdHotel, _IdHotelImage);
                 }
 
-
+                hotelRepositories.SaveChangesFacilities(hotels.facilities, hotels.IdHotel);
+               
                 Hotels hotelUpdate = new Hotels()
                 {
                     IdHotel = id,
@@ -286,7 +205,6 @@ namespace Licenta.Controlers
                     }
                 }
 
-
                 hotels.GaleryImages = _context.HotelImages.Where(x => x.IdHotel == hotels.IdHotel).ToArray();
                 hotels.imagesString = new string[hotels.GaleryImages.Length];
                 //new List<string>();
@@ -302,7 +220,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Hotels/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> DeleteHotel(int? id)
         {
             if (id == null)
             {
@@ -320,7 +238,7 @@ namespace Licenta.Controlers
         }
 
         // POST: Hotels/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteHotel")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

@@ -56,7 +56,7 @@
                         <td> @Html.DisplayFor(modelIten => Hotel.HotelName)</td>
                         <td> @Html.DisplayFor(modelIten => Hotel.DescriptionTable)</td>
                         <td> @Html.DisplayFor(modelIten => Hotel.Stars)</td>
-                        <td><a asp-controller="Hotels" asp-action="Details" asp-route-id=@Hotel.IdHotel asp-route-checkInDate=@Model.CheckIn asp-route-checkOutDate=@Model.CheckOut >Visit hotel</a></td>
+                        <td><a asp-controller="Hotels" asp-action="DetailsHotel" asp-route-id=@Hotel.IdHotel asp-route-checkInDate=@Model.CheckIn asp-route-checkOutDate=@Model.CheckOut >Visit hotel</a></td>
                     </tr>
                 }
             </tbody>

@@ -26,7 +26,7 @@ namespace Licenta.Controlers
         }
 
         // GET: HotelImages/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> DetailsHotelImages(int? id)
         {
             if (id == null)
             {
@@ -45,7 +45,7 @@ namespace Licenta.Controlers
         }
 
         // GET: HotelImages/Create
-        public IActionResult Create()
+        public IActionResult CreateHotelImages()
         {
             ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "IdHotel");
             return View();
@@ -56,7 +56,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdImageHotel,IdHotel,ImageHotel")] HotelImages hotelImages)
+        public async Task<IActionResult> CreateHotelImages([Bind("IdImageHotel,IdHotel,ImageHotel")] HotelImages hotelImages)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace Licenta.Controlers
         }
 
         // GET: HotelImages/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> EditHotelImages(int? id)
         {
             if (id == null)
             {
@@ -90,7 +90,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdImageHotel,IdHotel,ImageHotel")] HotelImages hotelImages)
+        public async Task<IActionResult> EditHotelImages(int id, [Bind("IdImageHotel,IdHotel,ImageHotel")] HotelImages hotelImages)
         {
             if (id != hotelImages.IdImageHotel)
             {
@@ -122,7 +122,7 @@ namespace Licenta.Controlers
         }
 
         // GET: HotelImages/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> DeleteHotelImages(int? id)
         {
             if (id == null)
             {
@@ -141,7 +141,7 @@ namespace Licenta.Controlers
         }
 
         // POST: HotelImages/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteHotelImages")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

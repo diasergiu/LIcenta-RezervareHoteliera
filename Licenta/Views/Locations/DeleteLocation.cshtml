@@ -1,12 +1,13 @@
 ﻿@model Licenta.Entityes.Location
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Delete";
 	Layout = "_Layout";
 }
 
-<h2>Details</h2>
+<h2>Delete</h2>
 
+<h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Location</h4>
     <hr />
@@ -36,8 +37,10 @@
             @Html.DisplayFor(model => model.Country)
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.IdLocation">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    
+    <form asp-action="DeleteLocation">
+        <input type="hidden" asp-for="IdLocation" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
 </div>

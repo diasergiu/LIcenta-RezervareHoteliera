@@ -26,7 +26,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Customers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> DetailsCustomer(int? id)
         {
             if (id == null)
             {
@@ -44,7 +44,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Customers/Create
-        public IActionResult Create()
+        public IActionResult CreateCustomer()
         {
             return View();
         }
@@ -54,7 +54,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCustomer,FirstName,LastName,Username,Password,Email,Phone")] Customers customers)
+        public async Task<IActionResult> CreateCustomer([Bind("IdCustomer,FirstName,LastName,Username,Password,Email,Phone")] Customers customers)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +67,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Customers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> EditCustomer(int? id)
         {
             if (id == null)
             {
@@ -87,7 +87,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCustomer,FirstName,LastName,Username,Password,Email,Phone,TypeUser")] Customers customers)
+        public async Task<IActionResult> EditCustomer(int id, [Bind("IdCustomer,FirstName,LastName,Username,Password,Email,Phone,TypeUser")] Customers customers)
         {
             if (id != customers.IdCustomer)
             {
@@ -118,7 +118,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Customers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> DeleteCustomer(int? id)
         {
             if (id == null)
             {
@@ -136,7 +136,7 @@ namespace Licenta.Controlers
         }
 
         // POST: Customers/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteCustomer")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

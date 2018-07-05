@@ -26,7 +26,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Rooms/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> DetailsRoom(int? id)
         {
             if (id == null)
             {
@@ -45,7 +45,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Rooms/Create
-        public IActionResult Create()
+        public IActionResult CreateRoom()
         {
             ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "HotelName");
             return View();
@@ -56,7 +56,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdRoom,Beds,Reserved,Bath,IdHotel,PriceRoom,RoomNumber")] Rooms rooms)
+        public async Task<IActionResult> CreateRoom([Bind("IdRoom,Beds,Reserved,Bath,IdHotel,PriceRoom,RoomNumber")] Rooms rooms)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdRoom,Beds,Reserved,Bath,IdHotel,PriceRoom,RoomNumber")] Rooms rooms)
+        public async Task<IActionResult> EditRoom(int id, [Bind("IdRoom,Beds,Reserved,Bath,IdHotel,PriceRoom,RoomNumber")] Rooms rooms)
         {
 
             if (id != rooms.IdRoom)
@@ -123,7 +123,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Rooms/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> DeleteRoom(int? id)
         {
             if (id == null)
             {
@@ -142,7 +142,7 @@ namespace Licenta.Controlers
         }
 
         // POST: Rooms/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteRoom")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

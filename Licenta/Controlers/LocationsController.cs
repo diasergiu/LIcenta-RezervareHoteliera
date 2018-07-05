@@ -26,7 +26,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Locations/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> DetailsLocation(int? id)
         {
             if (id == null)
             {
@@ -44,7 +44,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Locations/Create
-        public IActionResult Create()
+        public IActionResult CreateLocation()
         {
             return View();
         }
@@ -54,7 +54,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdLocation,NrStreat,StreatName,RegionName,Country")] Location location)
+        public async Task<IActionResult> CreateLocation([Bind("IdLocation,NrStreat,StreatName,RegionName,Country")] Location location)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Locations/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> EditLocation(int? id)
         {
             if (id == null)
             {
@@ -86,7 +86,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdLocation,NrStreat,StreatName,RegionName,Country")] Location location)
+        public async Task<IActionResult> EditLocation(int id, [Bind("IdLocation,NrStreat,StreatName,RegionName,Country")] Location location)
         {
             if (id != location.IdLocation)
             {
@@ -117,7 +117,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Locations/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> DeleteLocation(int? id)
         {
             if (id == null)
             {
@@ -135,7 +135,7 @@ namespace Licenta.Controlers
         }
 
         // POST: Locations/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteLocation")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

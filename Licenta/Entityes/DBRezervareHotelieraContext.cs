@@ -21,6 +21,11 @@ namespace Licenta.Entityes
         {
 
         }
+
+        public DBRezervareHotelieraContext()
+        {
+        }
+
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //        {
         //            if (!optionsBuilder.IsConfigured)

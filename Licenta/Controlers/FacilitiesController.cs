@@ -25,7 +25,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Facilities/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> DetailsFacilitie(int? id)
         {
             if (id == null)
             {
@@ -43,7 +43,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Facilities/Create
-        public IActionResult Create()
+        public IActionResult CreateFacilitie()
         {
             return View();
         }
@@ -65,7 +65,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Facilities/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> EditFacilitie(int? id)
         {
             if (id == null)
             {
@@ -85,7 +85,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdFacilities,FacilitiesName,IsChecked")] Facilities facilities)
+        public async Task<IActionResult> EditFacilitie(int id, [Bind("IdFacilities,FacilitiesName,IsChecked")] Facilities facilities)
         {
             if (id != facilities.IdFacilities)
             {
@@ -116,7 +116,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Facilities/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> DeleteFacilitie(int? id)
         {
             if (id == null)
             {
@@ -135,7 +135,7 @@ namespace Licenta.Controlers
         }
 
         // POST: Facilities/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteFacilitie")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

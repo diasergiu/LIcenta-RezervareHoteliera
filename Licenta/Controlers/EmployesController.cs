@@ -25,7 +25,7 @@ namespace Licenta.Entityes
         }
 
         // GET: Employes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> DetailsEmploye(int? id)
         {
             if (id == null)
             {
@@ -44,7 +44,7 @@ namespace Licenta.Entityes
         }
 
         // GET: Employes/Create
-        public IActionResult Create()
+        public IActionResult CreateEmploye()
         {
             ViewData["IdHotel"] = new SelectList(_context.Hotels, "IdHotel", "HotelName");
             return View();
@@ -55,7 +55,7 @@ namespace Licenta.Entityes
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idemploye,EmployType,FirstName,IdHotel,LastName,Password,Username")] Employes employes)
+        public async Task<IActionResult> CreateEmploye([Bind("Idemploye,EmployType,FirstName,IdHotel,LastName,Password,Username")] Employes employes)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace Licenta.Entityes
         }
 
         // GET: Employes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> EditEmploye(int? id)
         {
             if (id == null)
             {
@@ -89,7 +89,7 @@ namespace Licenta.Entityes
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idemploye,EmployType,FirstName,IdHotel,LastName,Password,Username")] Employes employes)
+        public async Task<IActionResult> EditEmploye(int id, [Bind("Idemploye,EmployType,FirstName,IdHotel,LastName,Password,Username")] Employes employes)
         {
             if (id != employes.Idemploye)
             {
@@ -121,7 +121,7 @@ namespace Licenta.Entityes
         }
 
         // GET: Employes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> DeleteEmploye(int? id)
         {
             if (id == null)
             {
@@ -140,7 +140,7 @@ namespace Licenta.Entityes
         }
 
         // POST: Employes/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteEmploye")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

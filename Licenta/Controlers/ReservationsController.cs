@@ -27,7 +27,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Reservations/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> DetailsReservation(int? id)
         {
             if (id == null)
             {
@@ -48,7 +48,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Reservations/Create
-        public IActionResult Create()
+        public IActionResult CreateReservation()
         {
             ViewData["IdCustomer"] = new SelectList(_context.Customers, "IdCustomer", "IdCustomer");
             ViewData["IdRoom"] = new SelectList(_context.Rooms, "IdRoom", "IdRoom");
@@ -60,7 +60,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdReservations,CheckIn,CheckOut,IdRoom,IdCustomer")] Reservations reservations)
+        public async Task<IActionResult> CreateReservation([Bind("IdReservations,CheckIn,CheckOut,IdRoom,IdCustomer")] Reservations reservations)
         {
 
             if (ModelState.IsValid)
@@ -101,7 +101,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Reservations/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> EditReservation(int? id)
         {
             if (id == null)
             {
@@ -123,7 +123,7 @@ namespace Licenta.Controlers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdReservations,CheckIn,CheckOut,IdRoom,IdCustomer")] Reservations reservations)
+        public async Task<IActionResult> EditReservation(int id, [Bind("IdReservations,CheckIn,CheckOut,IdRoom,IdCustomer")] Reservations reservations)
         {
             if (id != reservations.IdReservations)
             {
@@ -156,7 +156,7 @@ namespace Licenta.Controlers
         }
 
         // GET: Reservations/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> DeleteReservation(int? id)
         {
             if (id == null)
             {
@@ -176,7 +176,7 @@ namespace Licenta.Controlers
         }
 
         // POST: Reservations/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteReservation")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
